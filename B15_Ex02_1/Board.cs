@@ -18,7 +18,7 @@ namespace B15_Ex02_1
         public Board(int i_Size, int i_NumberOfPlayers)
         {
             gameBoard = new Coin[i_Size, i_Size];
-            playerOne = new Player(false, Coin.X);
+            playerOne = new Player(false, Coin.X, m_size);
             playerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O, m_size) : new Player(true, Coin.O, m_size);
             
             this.m_size = i_Size;

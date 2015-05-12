@@ -27,7 +27,6 @@ namespace B15_Ex02_1
             this.totalMovesLeft = (i_Size * 2 ) - 4;
 
             setNewGame();
-            
         }
 
         private void setNewGame()
@@ -73,7 +72,7 @@ namespace B15_Ex02_1
                     {
                         asciiValue = (char)unicode++;
                         System.Console.Write(" {0}  ", asciiValue.ToString());
-                    }
+    }
 
                     else if (x == -1 && y == -1)
                     {
@@ -87,22 +86,22 @@ namespace B15_Ex02_1
                     if (x > -1 && y > -1)
                     {
                         if (gameBoard[x, y].Equals(Coin.Null))
-                        {
+        {
                             System.Console.Write("   |");
                         }
 
                         else if (gameBoard[x, y].Equals(Coin.X))
-                        {
+            {
                             System.Console.Write(" X |");
                         }
 
                         else if (gameBoard[x, y].Equals(Coin.O))
-                        {
+                {
                             System.Console.Write(" O |");
                         }
 
                     }
- 
+
                 }
                 System.Console.WriteLine(separator);
             }
@@ -121,7 +120,7 @@ namespace B15_Ex02_1
         }
     }
 
-    
+
     public enum Coin
     {
         X, 

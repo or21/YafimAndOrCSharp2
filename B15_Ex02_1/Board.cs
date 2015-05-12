@@ -30,7 +30,7 @@ namespace B15_Ex02_1
 
         public int size
         {
-            get { return this.m_size; }
+            get { return m_size; }
         }
 
         private void setNewGame()

@@ -9,10 +9,10 @@ namespace B15_Ex02_1
     class Player
     {
         private bool isComputer;
-        private "COIN" shape;
+        private Coin shape;
         private bool[,] availableMoves;
 
-        public Player(bool i_IsComputer, "COIN" shape)
+        public Player(bool i_IsComputer, Coin shape)
         {
             this.isComputer = i_IsComputer;
             this.shape = shape;

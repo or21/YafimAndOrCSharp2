@@ -24,8 +24,7 @@ namespace B15_Ex02_1
             this.m_size = i_Size;
             this.totalMovesLeft = (i_Size * 2 ) - 4;
 
-            setNewGame();
-            
+            setNewGame();  
         }
 
         private void setNewGame()
@@ -46,8 +45,6 @@ namespace B15_Ex02_1
 
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
-
-
     }
 
         public string print()
@@ -61,8 +58,6 @@ namespace B15_Ex02_1
             }
             return "";
         }
-
-
     }
 
 

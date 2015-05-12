@@ -8,6 +8,9 @@ namespace B15_Ex02_1
 {
     class Program
     {
-        //test
+        public class Main
+        {
+             
+        }
     }
 }

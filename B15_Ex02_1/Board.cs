@@ -19,8 +19,8 @@ namespace B15_Ex02_1
         {
             gameBoard = new Coin[i_Size, i_Size];
             playerOne = new Player(false, Coin.X);
-            playerTwo = (numberOfPlayers == 2 ) ? new Player(false, Coin.O) : new Player(true, Coin.O);
-
+            playerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O) : new Player(true, Coin.O);
+            
             this.size = i_Size;
             this.totalMovesLeft = (i_Size * 2 ) - 4;
 
@@ -48,7 +48,7 @@ namespace B15_Ex02_1
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
 
-        }
+    }
 
         public string print()
         {

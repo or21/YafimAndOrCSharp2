@@ -11,7 +11,7 @@ namespace B15_Ex02_1
         Player playerOne, playerTwo;
         Coin[,] gameBoard;
 
-        private int size;
+        private int m_size;
         private int totalMovesLeft;
 
         // Constructor
@@ -21,26 +21,31 @@ namespace B15_Ex02_1
             playerOne = new Player(false, Coin.X);
             playerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O) : new Player(true, Coin.O);
             
-            this.size = i_Size;
+            this.m_size = i_Size;
             this.totalMovesLeft = (i_Size * 2 ) - 4;
 
             setNewGame();
             
         }
 
+        public int size
+        {
+            get { return this.m_size; }
+        }
+
         private void setNewGame()
         {
             // Set all board to null.
-            for (int x = 0; x < size; x++)
+            for (int x = 0; x < m_size; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < m_size; y++)
                 {
                     gameBoard[x, y] = Coin.Null;
                 }
             }
 
             // Place 4 coins in board
-            int halfBoard = size/2;
+            int halfBoard = m_size/2;
             gameBoard[halfBoard + 1, halfBoard] = Coin.X;
             gameBoard[halfBoard, halfBoard + 1] = Coin.X;
 
@@ -52,6 +57,7 @@ namespace B15_Ex02_1
 
         public string print()
         {
+
             return "";
         }
 

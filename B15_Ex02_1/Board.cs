@@ -19,18 +19,13 @@ namespace B15_Ex02_1
         {
             gameBoard = new Coin[i_Size, i_Size];
             playerOne = new Player(false, Coin.X);
-            playerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O) : new Player(true, Coin.O);
+            playerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O, m_size) : new Player(true, Coin.O, m_size);
             
             this.m_size = i_Size;
             this.totalMovesLeft = (i_Size * 2 ) - 4;
 
             setNewGame();
             
-        }
-
-        public int size
-        {
-            get { return m_size; }
         }
 
         private void setNewGame()
@@ -57,7 +52,13 @@ namespace B15_Ex02_1
 
         public string print()
         {
+            for (int x = 0; x < m_size + 1; x++)
+            {
+                for (int y = 0; y < m_size + 1; y++)
+                {
 
+                }
+            }
             return "";
         }
 

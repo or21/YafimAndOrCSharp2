@@ -15,7 +15,7 @@ namespace B15_Ex02_1
         private int totalMovesLeft;
 
         // Constructor
-        public Board(int i_Size, int numberOfPlayers)
+        public Board(int i_Size, int i_NumberOfPlayers)
         {
             gameBoard = new Coin[i_Size, i_Size];
             playerOne = new Player(false, Coin.X);

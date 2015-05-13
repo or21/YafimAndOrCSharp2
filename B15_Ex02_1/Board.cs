@@ -15,12 +15,12 @@ namespace B15_Ex02_1
         /// Set the players
         /// </summary>
         private Player m_PlayerOne, m_PlayerTwo;
-        
+
         /// <summary>
         /// Coin matrix holds the current state of the game
         /// </summary>
         private Coin[,] gameBoard;
-        
+
         /// <summary>
         /// Size of the board
         /// </summary>
@@ -42,9 +42,9 @@ namespace B15_Ex02_1
 
             gameBoard = new Coin[i_Size, i_Size];
             m_PlayerOne = new Player(false, Coin.X, m_Size);
-            m_PlayerTwo = (i_NumberOfPlayers == 2 ) ? new Player(false, Coin.O, m_Size) : new Player(true, Coin.O, m_Size);
-        
-            this.m_TotalMovesLeft = (i_Size * 2 ) - 4;
+            m_PlayerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, m_Size) : new Player(true, Coin.O, m_Size);
+
+            this.m_TotalMovesLeft = (i_Size * 2) - 4;
 
             setNewGame();
         }
@@ -74,16 +74,17 @@ namespace B15_Ex02_1
 
             //TODO: DELTE.
             Drawer.drawBoard(this);
-                    }
+        }
 
         public int Size
-                    {
-            get {return m_Size;}
-                        }
+        {
+            get { return m_Size; }
+        }
 
-        public Coin[,] GameBoard
-            {
-            get { return gameBoard; }
+        public Coin this[int i_I, int i_J]
+        {
+            get { return gameBoard[i_I, i_J]; }
+            set { gameBoard[i_I, i_J] = value; }
         }
     }
 
@@ -96,11 +97,11 @@ namespace B15_Ex02_1
         /// Black coin
         /// </summary>
         X,
- 
+
         /// <summary>
         /// White coin
         /// </summary>
-        O, 
+        O,
 
         /// <summary>
         /// No coin

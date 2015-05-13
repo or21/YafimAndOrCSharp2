@@ -10,7 +10,7 @@ namespace B15_Ex02_1
     {
         public static void MakeMove(Coin[,] i_Board, Player i_Player, int i_NewX, int i_NewY)
         {
-            //
+            i_Board[i_NewX, i_NewY] = i_Player.ShapeCoin;
         }
 
         public static int ParseValuesToInt(char i_InputValue)

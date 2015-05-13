@@ -70,24 +70,15 @@ namespace B15_Ex02_1
 
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
-
-            /*
-            //TODO: DELETE --> Debug
-            System.Console.WriteLine("({0},{1}) = X", halfBoard + 1, halfBoard);
-            System.Console.WriteLine("({0},{1}) = X", halfBoard, halfBoard+1);
-            System.Console.WriteLine("({0},{1}) = O", halfBoard, halfBoard);
-            System.Console.WriteLine("({0},{1}) = O", halfBoard + 1, halfBoard + 1);
-            */
-        }
+      }
 
         /// <summary>
         /// Draws current state of the board
         /// </summary>
-        public void drawBoard()
+        public void DrawBoard()
         {
             // 'A'
             int unicode = 65;
-            char asciiValue;
             string separator = drawSeparator();
 
             for (int x = -1; x < m_Size; x++)
@@ -96,36 +87,36 @@ namespace B15_Ex02_1
                 {
                     if (x == -1 && y != -1)
                     {
-                        asciiValue = (char)unicode++;
-                        System.Console.Write(" {0}  ", asciiValue.ToString());
+                        char asciiValue = (char)unicode++;
+                        Console.Write(" {0}  ", asciiValue);
                     }
                     else if (x == -1 && y == -1)
                     {
-                        System.Console.Write("   ");
+                        Console.Write("   ");
                     }
                     else if (x != -1 && y == -1)
                     {
-                        System.Console.Write("{0} |", x + 1);
+                        Console.Write("{0} |", x + 1);
                     }
 
                     if (x > -1 && y > -1)
                     {
                         if (gameBoard[x, y].Equals(Coin.Null))
                         {
-                            System.Console.Write("   |");
+                            Console.Write("   |");
                         }
                         else if (gameBoard[x, y].Equals(Coin.X))
                         {
-                            System.Console.Write(" X |");
+                            Console.Write(" X |");
                         }
                         else if (gameBoard[x, y].Equals(Coin.O))
                         {
-                            System.Console.Write(" O |");
+                            Console.Write(" O |");
                         }
                     }
                 }
 
-                System.Console.WriteLine(separator);
+                Console.WriteLine(separator);
             }
         }
 

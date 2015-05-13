@@ -26,9 +26,9 @@ namespace B15_Ex02_1
             }
 
             Board b = new Board(size, players);
-            b.DrawBoard();
 
-            System.Console.ReadLine();
+            Console.ReadLine();
+
         }
     }
 }

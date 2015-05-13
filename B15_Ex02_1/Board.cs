@@ -70,70 +70,20 @@ namespace B15_Ex02_1
 
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
-      }
 
-        /// <summary>
-        /// Draws current state of the board
-        /// </summary>
-        public void DrawBoard()
-        {
-            // 'A'
-            int unicode = 65;
-            string separator = drawSeparator();
 
-            for (int x = -1; x < m_Size; x++)
+            //TODO: DELTE.
+            Drawer.drawBoard(this);
+                    }
+
+        public int Size
+                    {
+            get {return m_Size;}
+                        }
+
+        public Coin[,] GameBoard
             {
-                for (int y = -1; y < m_Size; y++)
-                {
-                    if (x == -1 && y != -1)
-                    {
-                        char asciiValue = (char)unicode++;
-                        Console.Write(" {0}  ", asciiValue);
-                    }
-                    else if (x == -1 && y == -1)
-                    {
-                        Console.Write("   ");
-                    }
-                    else if (x != -1 && y == -1)
-                    {
-                        Console.Write("{0} |", x + 1);
-                    }
-
-                    if (x > -1 && y > -1)
-                    {
-                        if (gameBoard[x, y].Equals(Coin.Null))
-                        {
-                            Console.Write("   |");
-                        }
-                        else if (gameBoard[x, y].Equals(Coin.X))
-                        {
-                            Console.Write(" X |");
-                        }
-                        else if (gameBoard[x, y].Equals(Coin.O))
-                        {
-                            Console.Write(" O |");
-                        }
-                    }
-                }
-
-                Console.WriteLine(separator);
-            }
-        }
-
-        /// <summary>
-        ///  Draws bottom border of each cell
-        /// </summary>
-        /// <returns>valid separator</returns>
-        private string drawSeparator()
-        {
-            string separator = "  ";
-
-            for (int i = 0; i < (4 * m_Size) + 1; i++)
-            {
-                separator += '=';
-            }
-
-            return Environment.NewLine + separator;
+            get { return gameBoard; }
         }
     }
 

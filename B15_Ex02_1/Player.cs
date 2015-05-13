@@ -59,5 +59,9 @@ namespace B15_Ex02_1
             get { return isComputer; }
         }
 
+        public Coin ShapeCoin
+        {
+            get { return shape; }
+        }
     }
 }

@@ -11,12 +11,10 @@ namespace B15_Ex02_1
     /// </summary>
     class Drawer
     {
-   //     private static int m_Size = Board.Size;
 
-        public static void drawBoard(Board b)
+        public static void drawBoard(Board gameBoard)
         {
-            int m_Size = b.Size;
-            Coin[,] gameBoard = b.GameBoard;
+            int m_Size = gameBoard.Size;
 
             // 'A'
             int unicode = 65;

@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class Player
+    public class Player
     {
         private bool isComputer;
         private Coin shape;
         private bool[,] availableMoves;
         private int size;
 
-        public Player(bool i_IsComputer, Coin i_Shape, int i_Size)
+        public string name;
+
+        public Player(bool i_IsComputer, Coin i_Shape, string playerName, int i_Size)
         {
+            this.name = playerName;
             this.isComputer = i_IsComputer;
             this.shape = i_Shape;
             this.size = i_Size;
@@ -62,6 +65,12 @@ namespace B15_Ex02_1
         public Coin ShapeCoin
         {
             get { return shape; }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { this.name = value; }
         }
     }
 }

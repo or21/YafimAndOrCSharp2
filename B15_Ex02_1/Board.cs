@@ -12,6 +12,11 @@ namespace B15_Ex02_1
     public class Board
     {
         /// <summary>
+        /// Number of human players
+        /// </summary>
+        private int m_NumberOfPlayers;
+        
+        /// <summary>
         /// Set the players
         /// </summary>
         private Player m_PlayerOne, m_PlayerTwo;
@@ -36,13 +41,14 @@ namespace B15_Ex02_1
         /// </summary>
         /// <param name="i_Size"> size of the board</param>
         /// <param name="i_NumberOfPlayers"> number of current human players </param>
-        public Board(int i_Size, int i_NumberOfPlayers)
+        public Board(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
         {
             this.m_Size = i_Size;
-
+            m_NumberOfPlayers = i_NumberOfPlayers;
             gameBoard = new Coin[i_Size, i_Size];
-            m_PlayerOne = new Player(false, Coin.X, m_Size);
-            m_PlayerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, m_Size) : new Player(true, Coin.O, m_Size);
+
+            m_PlayerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+            m_PlayerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_TotalMovesLeft = (i_Size * 2) - 4;
 
@@ -73,18 +79,55 @@ namespace B15_Ex02_1
 
 
             //TODO: DELTE.
-            Drawer.drawBoard(this);
-                    }
+ //           Drawer.drawBoard(this);
+        }
 
         public int Size
-                    {
+        {
             get { return m_Size; }
-                        }
+        }
 
         public Coin this[int i_I, int i_J]
-            {
+        {
             get { return gameBoard[i_I, i_J]; }
             set { gameBoard[i_I, i_J] = value; }
+        }
+
+        // manage the game
+
+        // runs the game
+        public void RunGame()
+        {
+
+        }
+
+        /// <summary>
+        /// Get move from the user
+        /// </summary>
+
+        private void getMove()
+        {
+
+            string playerInput;
+            int x, y;
+            bool flag = true;
+
+            while (flag)
+            {
+                playerInput = Console.ReadLine();
+
+                x = Char.ToUpper(playerInput[0]) - 64;
+                y = playerInput[1];
+
+                if (x < 0 && y < 0 && x > m_Size && y > m_Size)
+                {
+                    Console.WriteLine("Invalid Input! Please Try again...");
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
         }
     }
 

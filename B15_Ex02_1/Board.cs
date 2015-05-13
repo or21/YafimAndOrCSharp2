@@ -74,15 +74,15 @@ namespace B15_Ex02_1
 
             //TODO: DELTE.
             Drawer.drawBoard(this);
-                    }
+        }
 
         public int Size
-                    {
+        {
             get {return m_Size;}
-                        }
+        }
 
         public Coin[,] GameBoard
-            {
+        {
             get { return gameBoard; }
         }
     }

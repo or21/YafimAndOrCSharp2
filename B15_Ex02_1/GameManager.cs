@@ -9,7 +9,7 @@ namespace B15_Ex02_1
     /// <summary>
     /// This class holds the GUI and Initializes a new game
     /// </summary>
-    public class Board
+    public class GameManager
     {
         /// <summary>
         /// Number of human players
@@ -43,7 +43,7 @@ namespace B15_Ex02_1
         /// <param name="i_NumberOfPlayers"> number of current human players </param>
         /// <param name="i_PlayerOneName"></param>
         /// <param name="i_PlayerTwoName"></param>
-        public Board(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
+        public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
         {
             this.m_Size = i_Size;
             m_NumberOfPlayers = i_NumberOfPlayers;

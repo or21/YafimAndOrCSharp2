@@ -6,7 +6,7 @@ namespace B15_Ex02_1
     /// </summary>
     class Drawer
     {
-        public static void DrawBoard(Board i_GameBoard)
+        public static void DrawBoard(GameManager i_GameBoard)
         {
             // 'A'
             int unicode = 65;

@@ -9,7 +9,7 @@ namespace B15_Ex02_1
 {
     class Utils
     {
-        public static void MakeMove(Board i_Board, Player i_Player, int i_NewX, int i_NewY)
+        public static void MakeMove(GameManager i_Board, Player i_Player, int i_NewX, int i_NewY)
         {
             i_Board[i_NewX, i_NewY] = i_Player.ShapeCoin;
 

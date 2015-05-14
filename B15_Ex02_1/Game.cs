@@ -9,7 +9,7 @@ namespace B15_Ex02_1
     /// <summary>
     /// Initializes a new game with given parameters.
     /// </summary>
-    class Game
+    public class Game
     {
         public Game()
         {
@@ -40,8 +40,9 @@ namespace B15_Ex02_1
                 bool inputIsNumber = int.TryParse(inputFromUser, out size);
                 if (inputIsNumber)
                 {
-                    isValidSize = ((size == 8) || (size == 6));
+                    isValidSize = size == 8 || size == 6;
                 }
+
                 if (!inputIsNumber || !isValidSize)
                 {
                     Console.WriteLine("Invalid Input! try again...");
@@ -60,7 +61,7 @@ namespace B15_Ex02_1
         /// </summary>
         private static string setName()
         {
-            string name = "";
+            string name = null;
             bool isValidInput = false;
 
             while (!isValidInput)
@@ -91,6 +92,7 @@ namespace B15_Ex02_1
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -110,7 +112,7 @@ namespace B15_Ex02_1
 
                 if (inputIsNumber)
                 {
-                    isValidNumberOfPlayers = ((numberOfPlayers == 2) || (numberOfPlayers == 1));
+                    isValidNumberOfPlayers = numberOfPlayers == 2 || numberOfPlayers == 1;
                 }
                 
                 if (!inputIsNumber || !isValidNumberOfPlayers)
@@ -122,10 +124,12 @@ namespace B15_Ex02_1
                     isValidInput = true;
                 }
             }
+
             if (numberOfPlayers == 2)
             {
                 Console.WriteLine("Hello Player2 ");
             }
+
             return numberOfPlayers;
         }
     }

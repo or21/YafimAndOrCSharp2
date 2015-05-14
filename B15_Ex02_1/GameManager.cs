@@ -116,6 +116,8 @@ namespace B15_Ex02_1
                 Drawer.DrawBoard(this);
                 playerOneTurn = !playerOneTurn;
             }
+
+            Console.WriteLine("Thank You for playing...");
         }
 
         /// <summary>
@@ -150,6 +152,12 @@ namespace B15_Ex02_1
                             Console.WriteLine("Can't Move here. Try again...");
                         }
                     }
+                }
+
+                else if (playerInput.ToUpper().Equals("Q"))
+                {
+                    isValidInput = true;
+                    isGameOver = true;
                 }
             }
         }

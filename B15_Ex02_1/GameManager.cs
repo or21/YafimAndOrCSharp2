@@ -111,12 +111,33 @@ namespace B15_Ex02_1
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
 
                 // Availble moves of the player
+                bool canMove = currentPlayer.AvailableMoves != 0;
 
-                getMove(currentPlayer, out  x, out y, ref isGameOver);
-                m_gameManager = this;
-                Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
-                Utils.UpadteAvailableMoves(this, ref otherPlayer);
-                Drawer.DrawBoard(this);
+                if (canMove)
+                {
+                    getMove(currentPlayer, out  x, out y, ref isGameOver);
+                    m_gameManager = this;
+                    Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
+                    Utils.UpadteAvailableMoves(this, ref otherPlayer);
+                    Drawer.DrawBoard(this);
+
+
+                    //TODO: DELETE --> DEBUG
+                    Console.WriteLine("{0} Score: {1}, {2} Score: {3}", currentPlayer.Name, currentPlayer.Points, otherPlayer.Name, otherPlayer.Points);
+                }
+                else
+                {
+                    if (otherPlayer.AvailableMoves != 0)
+                    {
+                        Console.WriteLine("No move left for {0}!", currentPlayer.Name);
+                    }
+                    else
+                    {
+                        Player winner = (currentPlayer.Points > otherPlayer.Points) ? currentPlayer : otherPlayer;
+                        Console.WriteLine("No moves left! Game Over.\nThe Winner is {0}", winner);
+                    }
+                }
+
                 playerOneTurn = !playerOneTurn;
                 otherPlayer = currentPlayer;
             }

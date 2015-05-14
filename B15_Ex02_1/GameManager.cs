@@ -113,17 +113,19 @@ namespace B15_Ex02_1
             {
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
                 
-                getMove(currentPlayer, out  x, out y, isGameOver);
-                Utils.MakeMove(this, m_playerOne, y, x);
+                getMove(currentPlayer, out  x, out y, ref isGameOver);
+                Utils.MakeMove(this, currentPlayer, x, y);
                 Drawer.DrawBoard(this);
-                playerOneTurn = false;
+                playerOneTurn = !playerOneTurn;
             }
+
+            Console.WriteLine("Thank You for playing...");
         }
 
         /// <summary>
         /// Get move from the user
         /// </summary>
-        private void getMove(Player i_Player, out int x, out int y, bool isGameOver)
+        private void getMove(Player i_Player, out int x, out int y, ref bool isGameOver)
         {
             bool isValidInput = false;
             x = 0;
@@ -152,6 +154,12 @@ namespace B15_Ex02_1
                             Console.WriteLine("Can't Move here. Try again...");
                         }
                     }
+                }
+
+                else if (playerInput.ToUpper().Equals("Q"))
+                {
+                    isValidInput = true;
+                    isGameOver = true;
                 }
             }
         }

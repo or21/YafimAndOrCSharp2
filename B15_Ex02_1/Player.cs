@@ -30,28 +30,6 @@ namespace B15_Ex02_1
                     this.availableMoves[i, j] = false;
                 }
             }
-       //     firstAvailableMoves();
-        }
-
-        private void firstAvailableMoves()
-        {
-            /*
-            int halfBoard = size / 2 - 1;
-            if (shape == Coin.O)
-            {
-                availableMoves[halfBoard - 1, halfBoard + 1] = true;
-                availableMoves[halfBoard, halfBoard + 2] = true;
-                availableMoves[halfBoard + 2, halfBoard] = true;
-                availableMoves[halfBoard + 1, halfBoard - 1] = true;
-            }
-            else
-            {
-                availableMoves[halfBoard - 1, halfBoard] = true;
-                availableMoves[halfBoard + 1, halfBoard + 2] = true;
-                availableMoves[halfBoard + 2, halfBoard + 1] = true;
-                availableMoves[halfBoard, halfBoard - 1] = true;
-            }
-            */
         }
 
         public bool this[int i_I, int i_J]

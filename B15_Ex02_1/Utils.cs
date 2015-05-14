@@ -4,49 +4,57 @@ namespace B15_Ex02_1
 {
     internal class Utils
     {
+        private const int Left = 0;
+        private const int UpLeft = 1;
+        private const int Up = 2;
+        private const int UpRight = 3;
+        private const int Right = 4;
+        private const int DownRight = 5;
+        private const int Down = 6;
+        private const int DownLeft = 7;
+
         public static void MakeMove(Board i_Board, Player i_Player, int i_NewX, int i_NewY)
         {
             i_Board[i_NewX, i_NewY] = i_Player.ShapeCoin;
 
             Coin opponentCoin = getOpponentCoin(i_Player);
-            bool left = i_Board[i_NewX, i_NewY - 1] == opponentCoin;
-            bool leftUp = i_Board[i_NewX - 1, i_NewY - 1] == opponentCoin;
-            bool up = i_Board[i_NewX - 1, i_NewY] == opponentCoin;
-            bool upRight = i_Board[i_NewX - 1, i_NewY + 1] == opponentCoin;
-            bool right = i_Board[i_NewX, i_NewY + 1] == opponentCoin;
-            bool downRight = i_Board[i_NewX + 1, i_NewY + 1] == opponentCoin;
-            bool down = i_Board[i_NewX + 1, i_NewY] == opponentCoin;
-            bool downLeft = i_Board[i_NewX + 1, i_NewY - 1] == opponentCoin;
-
-            if (left)
+            bool[] directions = createDirectionArray(i_Board, i_NewX, i_NewY, opponentCoin);
+            if (directions[Left])
             {
                 checkMove(i_Board, i_NewX, i_NewY, 0, -1, i_Player);
             }
-            if (leftUp)
+
+            if (directions[UpLeft])
             {
                 checkMove(i_Board, i_NewX, i_NewY, -1, -1, i_Player);
             }
-            if (up)
+
+            if (directions[Up])
             {
                 checkMove(i_Board, i_NewX, i_NewY, -1, 0, i_Player);
             }
-            if (upRight)
+
+            if (directions[UpRight])
             {
                 checkMove(i_Board, i_NewX, i_NewY, -1, 1, i_Player);
             }
-            if (right)
+
+            if (directions[Right])
             {
                 checkMove(i_Board, i_NewX, i_NewY, 0, 1, i_Player);
             }
-            if (downRight)
+
+            if (directions[DownRight])
             {
                 checkMove(i_Board, i_NewX, i_NewY, 1, 1, i_Player);
             }
-            if (down)
+
+            if (directions[Down])
             {
                 checkMove(i_Board, i_NewX, i_NewY, 1, 0, i_Player);
             }
-            if (downLeft)
+
+            if (directions[DownLeft])
             {
                 checkMove(i_Board, i_NewX, i_NewY, 1, -1, i_Player);
             }
@@ -61,6 +69,7 @@ namespace B15_Ex02_1
             {
                 return Coin.X;
             }
+
             return Coin.O;
         }
 
@@ -68,11 +77,10 @@ namespace B15_Ex02_1
         {
             const int v_Unicode = 65;
             int inputAsInt = i_InputValue;
-            return (inputAsInt - v_Unicode);
+            return inputAsInt - v_Unicode;
         }
 
-        private static void checkMove(Board i_Board, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY,
-            Player i_CurrentPlayer)
+        private static void checkMove(Board i_Board, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Player i_CurrentPlayer)
         {
             int numberOfIterations = numOfIterationsInDirection(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, i_Board);
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
@@ -83,26 +91,19 @@ namespace B15_Ex02_1
                 bool isOpponentCoin = i_Board[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] == opponentCoin;
                 if (!isOpponentCoin)
                 {
-                    bool isCurrentPlayerCoin = i_Board[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] ==
-                                               i_CurrentPlayer.ShapeCoin;
+                    bool isCurrentPlayerCoin = i_Board[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] == i_CurrentPlayer.ShapeCoin;
                     if (isCurrentPlayerCoin)
                     {
-                        flipCoinsInRange(i_OrigX, i_OrigY, -i_DirectionX, -i_DirectionY, i_Board, i_CurrentPlayer,
-                            numberOfCoinsToFlip);
+                        flipCoinsInRange(i_OrigX, i_OrigY, -i_DirectionX, -i_DirectionY, i_Board, i_CurrentPlayer, numberOfCoinsToFlip);
                         break;
                     }
-                    else
-                    {
-                        numberOfCoinsToFlip++;
-                    }
 
+                    numberOfCoinsToFlip++;
                 }
-
             }
         }
 
-        private static void flipCoinsInRange(int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Board i_Board,
-            Player i_CurrentPlayer, int i_NumberOfCoinsToFlip)
+        private static void flipCoinsInRange(int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Board i_Board, Player i_CurrentPlayer, int i_NumberOfCoinsToFlip)
         {
             for (int i = 0; i < i_NumberOfCoinsToFlip; i++)
             {
@@ -110,40 +111,44 @@ namespace B15_Ex02_1
             }
         }
 
-
         private static int numOfIterationsInDirection(int i_OrigX, int i_OrigY, int i_OffsetX, int i_OffsetY, Board i_Board)
         {
             if (i_OffsetX == 0)
             {
-                return (i_OffsetY > 0 ? i_Board.Size - i_OrigY - 1 : i_OrigY);
+                return i_OffsetY > 0 ? i_Board.Size - i_OrigY - 1 : i_OrigY;
             }
+
             if (i_OffsetY == 0)
             {
-                return (i_OffsetX > 0 ? i_Board.Size - i_OrigX - 1 : i_OrigX);
+                return i_OffsetX > 0 ? i_Board.Size - i_OrigX - 1 : i_OrigX;
             }
+
             if (i_OffsetX > 0 && i_OffsetY > 0)
             {
                 return Math.Min(i_Board.Size - i_OrigX, i_Board.Size - i_OrigY);
             }
+
             if (i_OffsetX < 0 && i_OffsetY > 0)
             {
                 return Math.Min(i_OrigX, i_Board.Size - i_OrigY);
             }
+
             if (i_OffsetX > 0 && i_OffsetY < 0)
             {
                 return Math.Min(i_Board.Size - i_OrigX, i_OrigY);
             }
+
             if (i_OffsetX < 0 && i_OffsetY < 0)
             {
                 return Math.Min(i_OrigX, i_OrigY);
             }
+
             return 0;
         }
 
         public static void UpadteAvailableMoves(Board i_Board, ref Player i_Player)
         {
             Coin opponentCoin = getOpponentCoin(i_Player);
-            bool[] directions = new bool[8];
 
             for (int i = 0; i < i_Board.Size; i++)
             {
@@ -152,25 +157,31 @@ namespace B15_Ex02_1
                     bool sqareWithOpponentCoin = i_Board[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
-                        directions[0] = i_Board[i, j - 1] == Coin.Null;
-                        directions[1] = i_Board[i - 1, j - 1] == Coin.Null;
-                        directions[2] = i_Board[i - 1, j] == Coin.Null;
-                        directions[3] = i_Board[i - 1, j + 1] == Coin.Null;
-                        directions[4] = i_Board[i, j + 1] == Coin.Null;
-                        directions[5] = i_Board[i + 1, j + 1] == Coin.Null;
-                        directions[6] = i_Board[i + 1, j] == Coin.Null;
-                        directions[7] = i_Board[i + 1, j - 1] == Coin.Null;
-
+                        bool[] directions = createDirectionArray(i_Board, i, j, Coin.Null);
                         checkAllDirections(i, j, directions, i_Board, ref i_Player);
                     }
                 }
             }
         }
 
+        private static bool[] createDirectionArray(Board i_Board, int i_StartX, int i_StartJ, Coin i_Coin)
+        {
+            bool[] directions = new bool[8];
+            directions[0] = i_Board[i_StartX, i_StartJ - 1] == i_Coin;
+            directions[1] = i_Board[i_StartX - 1, i_StartJ - 1] == i_Coin;
+            directions[2] = i_Board[i_StartX - 1, i_StartJ] == i_Coin;
+            directions[3] = i_Board[i_StartX - 1, i_StartJ + 1] == i_Coin;
+            directions[4] = i_Board[i_StartX, i_StartJ + 1] == i_Coin;
+            directions[5] = i_Board[i_StartX + 1, i_StartJ + 1] == i_Coin;
+            directions[6] = i_Board[i_StartX + 1, i_StartJ] == i_Coin;
+            directions[7] = i_Board[i_StartX + 1, i_StartJ - 1] == i_Coin;
+            return directions;
+        }
+
         private static void checkAllDirections(int i_StartX, int i_StartY, bool[] i_Directions, Board i_Board, ref Player i_Player)
         {
             bool canBeMove;
-            if (i_Directions[0])
+            if (i_Directions[Left])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 0, 1, i_Board, i_Player);
                 if (canBeMove)
@@ -178,7 +189,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX, i_StartY - 1] = true;
                 }
             }
-            if (i_Directions[1])
+
+            if (i_Directions[UpLeft])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 1, 1, i_Board, i_Player);
                 if (canBeMove)
@@ -186,7 +198,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX - 1, i_StartY - 1] = true;
                 }
             }
-            if (i_Directions[2])
+
+            if (i_Directions[Up])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 1, 0, i_Board, i_Player);
                 if (canBeMove)
@@ -194,7 +207,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX - 1, i_StartY] = true;
                 }
             }
-            if (i_Directions[3])
+
+            if (i_Directions[UpRight])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 1, -1, i_Board, i_Player);
                 if (canBeMove)
@@ -202,7 +216,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX - 1, i_StartY + 1] = true;
                 }
             }
-            if (i_Directions[4])
+
+            if (i_Directions[Right])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 0, -1, i_Board, i_Player);
                 if (canBeMove)
@@ -210,7 +225,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX, i_StartY - 1] = true;
                 }
             }
-            if (i_Directions[5])
+
+            if (i_Directions[DownRight])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, -1, -1, i_Board, i_Player);
                 if (canBeMove)
@@ -218,7 +234,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX + 1, i_StartY + 1] = true;
                 }
             }
-            if (i_Directions[6])
+
+            if (i_Directions[Down])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, -1, 0, i_Board, i_Player);
                 if (canBeMove)
@@ -226,7 +243,8 @@ namespace B15_Ex02_1
                     i_Player[i_StartX + 1, i_StartY] = true;
                 }
             }
-            if (i_Directions[7])
+
+            if (i_Directions[DownLeft])
             {
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, -1, 1, i_Board, i_Player);
                 if (canBeMove)
@@ -236,8 +254,7 @@ namespace B15_Ex02_1
             }
         }
 
-        private static bool checkIfMyCoinInEnd(int i_StartX, int i_StartY, int i_DirectionX, int i_DirectionY, Board i_Board,
-        Player i_CurrentPlayer)
+        private static bool checkIfMyCoinInEnd(int i_StartX, int i_StartY, int i_DirectionX, int i_DirectionY, Board i_Board, Player i_CurrentPlayer)
         {
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
             int numberOfIterations = numOfIterationsInDirection(i_StartX, i_StartY, i_DirectionX, i_DirectionY, i_Board);
@@ -252,6 +269,7 @@ namespace B15_Ex02_1
                 {
                     return true;
                 }
+
                 if (!isOppCoin)
                 {
                     return false;

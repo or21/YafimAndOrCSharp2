@@ -161,7 +161,6 @@ namespace B15_Ex02_1
                     bool sqareWithOpponentCoin = i_GameManager[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
-                        i_Player[i, j] = false;
                         bool[] directions = createDirectionArray(i_GameManager, i, j, Coin.Null);
                         checkAllDirections(i, j, directions, i_GameManager, ref i_Player);
                     }

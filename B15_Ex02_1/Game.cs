@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
+    /// <summary>
+    /// Initializes a new game with given parameters.
+    /// </summary>
     class Game
     {
         public Game()
@@ -18,6 +21,9 @@ namespace B15_Ex02_1
             GameManager gm = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName);
 
             Drawer.DrawBoard(gm);
+
+            gm.RunGame();
+
             Console.ReadLine();
         }
 

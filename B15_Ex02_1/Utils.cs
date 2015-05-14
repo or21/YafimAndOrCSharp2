@@ -152,6 +152,7 @@ namespace B15_Ex02_1
         {
             Coin opponentCoin = getOpponentCoin(i_Player);
             i_Player.AvailableMoves = 0;
+            clearPlayerAvailableMoves(i_GameManager, ref i_Player);
 
             for (int i = 0; i < i_GameManager.Size; i++)
             {
@@ -164,6 +165,17 @@ namespace B15_Ex02_1
                         bool[] directions = createDirectionArray(i_GameManager, i, j, Coin.Null);
                         checkAllDirections(i, j, directions, i_GameManager, ref i_Player);
                     }
+                }
+            }
+        }
+
+        private static void clearPlayerAvailableMoves(GameManager i_GameManager, ref Player io_Player)
+        {
+            for (int i = 0; i < i_GameManager.Size; i++)
+            {
+                for (int j = 0; j < i_GameManager.Size; j++)
+                {
+                    io_Player[i, j] = false;
                 }
             }
         }

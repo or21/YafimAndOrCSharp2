@@ -54,6 +54,8 @@ namespace B15_Ex02_1
         
             this.m_TotalMovesLeft = (i_Size * 2) - 4;
 
+
+
             setNewGame();
         }
 
@@ -79,6 +81,9 @@ namespace B15_Ex02_1
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
+            //update availble moves for each player
+            Utils.UpadteAvailableMoves(this, ref m_PlayerOne);
+            Utils.UpadteAvailableMoves(this, ref m_PlayerTwo);
         }
 
         public int Size

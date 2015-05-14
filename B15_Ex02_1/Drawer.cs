@@ -31,7 +31,9 @@ namespace B15_Ex02_1
                         Console.Write("{0} |", x + 1);
                     }
 
-                    if (x > -1 && y > -1)
+                    bool positiveCoordinates = x > -1 && y > -1;
+                    
+                    if (positiveCoordinates)
                     {
                         if (i_GameBoard[x, y].Equals(Coin.Null))
                         {

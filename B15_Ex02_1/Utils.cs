@@ -167,14 +167,43 @@ namespace B15_Ex02_1
         private static bool[] createDirectionArray(GameManager i_GameManager, int i_StartX, int i_StartJ, Coin i_Coin)
         {
             bool[] directions = new bool[8];
-            directions[0] = i_GameManager[i_StartX, i_StartJ - 1] == i_Coin;
-            directions[1] = i_GameManager[i_StartX - 1, i_StartJ - 1] == i_Coin;
-            directions[2] = i_GameManager[i_StartX - 1, i_StartJ] == i_Coin;
-            directions[3] = i_GameManager[i_StartX - 1, i_StartJ + 1] == i_Coin;
-            directions[4] = i_GameManager[i_StartX, i_StartJ + 1] == i_Coin;
-            directions[5] = i_GameManager[i_StartX + 1, i_StartJ + 1] == i_Coin;
-            directions[6] = i_GameManager[i_StartX + 1, i_StartJ] == i_Coin;
-            directions[7] = i_GameManager[i_StartX + 1, i_StartJ - 1] == i_Coin;
+            bool leftEdge = i_StartX == 0;
+            bool upEdge = i_StartJ == 0;
+            bool rightEdge = i_StartX == i_GameManager.Size - 1;
+            bool downEdge = i_StartJ == i_GameManager.Size - 1;
+
+            if (!leftEdge)
+            {
+                directions[Left] = i_GameManager[i_StartX, i_StartJ - 1] == i_Coin;
+                if (!upEdge)
+                {
+                    directions[Up] = i_GameManager[i_StartX - 1, i_StartJ] == i_Coin;
+                    directions[UpLeft] = i_GameManager[i_StartX - 1, i_StartJ - 1] == i_Coin;
+                }
+
+                if (!downEdge)
+                {
+                    directions[Down] = i_GameManager[i_StartX + 1, i_StartJ] == i_Coin;
+                    directions[DownLeft] = i_GameManager[i_StartX + 1, i_StartJ - 1] == i_Coin;
+                }
+            }
+
+            if (!rightEdge)
+            {
+                directions[Right] = i_GameManager[i_StartX, i_StartJ + 1] == i_Coin;
+                if (!upEdge)
+                {
+                    directions[Up] = i_GameManager[i_StartX - 1, i_StartJ] == i_Coin;
+                    directions[UpRight] = i_GameManager[i_StartX - 1, i_StartJ + 1] == i_Coin;
+                }
+
+                if (!downEdge)
+                {
+                    directions[Down] = i_GameManager[i_StartX + 1, i_StartJ] == i_Coin;
+                    directions[DownRight] = i_GameManager[i_StartX + 1, i_StartJ + 1] == i_Coin;
+                }
+            }
+            
             return directions;
         }
 

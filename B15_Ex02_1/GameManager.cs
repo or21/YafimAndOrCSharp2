@@ -115,7 +115,7 @@ namespace B15_Ex02_1
 
                 if (canMove)
                 {
-                    getMove(currentPlayer, out  x, out y, ref isGameOver);
+                    getMove(currentPlayer, out x, out y, ref isGameOver);
                     m_gameManager = this;
 
                     if (isGameOver)
@@ -150,6 +150,7 @@ namespace B15_Ex02_1
                 playerOneTurn = !playerOneTurn;
                 otherPlayer = currentPlayer;
             }
+
             Utils.CountPoints(m_gameManager, ref currentPlayer, ref otherPlayer);
             Console.WriteLine("{0} Score: {1}, {2} Score: {3}", currentPlayer.Name, currentPlayer.Points, otherPlayer.Name, otherPlayer.Points);
             Console.WriteLine("Thank You for playing...");
@@ -188,7 +189,6 @@ namespace B15_Ex02_1
                         }
                     }
                 }
-
                 else if (playerInput != null && playerInput.ToUpper().Equals("Q"))
                 {
                     isValidInput = true;

@@ -15,17 +15,17 @@ namespace B15_Ex02_1
         /// Number of human players
         /// </summary>
         private int m_numberOfPlayers;
-
+        
         /// <summary>
         /// Set the players
         /// </summary>
         private Player m_playerOne, m_playerTwo;
-
+        
         /// <summary>
         /// Coin matrix holds the current state of the game
         /// </summary>
         private Coin[,] gameBoard;
-
+        
         /// <summary>
         /// Size of the board
         /// </summary>
@@ -53,7 +53,7 @@ namespace B15_Ex02_1
 
             m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
             m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
-
+        
             this.m_totalMovesLeft = (i_Size * 2) - 4;
             setNewGame();
         }
@@ -96,8 +96,6 @@ namespace B15_Ex02_1
             set { gameBoard[i_I, i_J] = value; }
         }
 
-        // manage the game
-
         // runs the game
         public void RunGame()
         {
@@ -111,13 +109,16 @@ namespace B15_Ex02_1
             while (!isGameOver)
             {
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
-                otherPlayer = playerOneTurn ? m_playerTwo : m_playerOne;
+
+                // Availble moves of the player
+
                 getMove(currentPlayer, out  x, out y, ref isGameOver);
                 m_gameManager = this;
                 Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                 Utils.UpadteAvailableMoves(this, ref otherPlayer);
                 Drawer.DrawBoard(this);
                 playerOneTurn = !playerOneTurn;
+                otherPlayer = currentPlayer;
             }
 
             Console.WriteLine("Thank You for playing...");
@@ -131,7 +132,7 @@ namespace B15_Ex02_1
             bool isValidInput = false;
             i_X = 0;
             i_Y = 0;
-            Console.WriteLine("{0}'s Turn: Please make a move: ", i_Player.Name);
+            Console.WriteLine("{0}'s Turn: Please make a move ({1}): ", i_Player.Name, i_Player.ShapeCoin);
 
             while (!isValidInput)
             {
@@ -175,11 +176,11 @@ namespace B15_Ex02_1
         /// Black coin
         /// </summary>
         X,
-
+ 
         /// <summary>
         /// White coin
         /// </summary>
-        O,
+        O, 
 
         /// <summary>
         /// No coin

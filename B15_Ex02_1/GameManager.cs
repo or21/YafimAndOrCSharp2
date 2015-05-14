@@ -130,9 +130,9 @@ namespace B15_Ex02_1
                     
                     Drawer.DrawBoard(this);
 
-
                     //TODO: DELETE --> DEBUG
-                    Console.WriteLine("{0} Score: {1}, {2} Score: {3}", currentPlayer.Name, currentPlayer.Points, otherPlayer.Name, otherPlayer.Points);
+                    
+                    Console.WriteLine("{0} Av.Moves: {1}, {2} Av.Moves: {3}", currentPlayer.Name, currentPlayer.AvailableMoves, otherPlayer.Name, otherPlayer.AvailableMoves);
                 }
                 else
                 {
@@ -150,7 +150,8 @@ namespace B15_Ex02_1
                 playerOneTurn = !playerOneTurn;
                 otherPlayer = currentPlayer;
             }
-
+            Utils.CountPoints(m_gameManager, ref currentPlayer, ref otherPlayer);
+            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", currentPlayer.Name, currentPlayer.Points, otherPlayer.Name, otherPlayer.Points);
             Console.WriteLine("Thank You for playing...");
         }
 

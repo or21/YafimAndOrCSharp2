@@ -320,10 +320,10 @@ namespace B15_Ex02_1
             return false;
         }
 
-        public static void CountPoints(GameManager i_GameManager, out int o_PointsPlayerA , out int o_PointsPlayerB )
+        public static void CountPoints(GameManager i_GameManager, ref Player o_PlayerA, ref Player o_PlayerB)
         {
-            o_PointsPlayerA = 0;
-            o_PointsPlayerB = 0;
+            o_PlayerA.Points = 0;
+            o_PlayerB.Points = 0;
             for (int i = 0; i < i_GameManager.Size; i++)
             {
                 for (int j = 0; j < i_GameManager.Size; j++)
@@ -333,11 +333,11 @@ namespace B15_Ex02_1
                     bool squareIsX = Coin.X == squareCoin;
                     if (squareIsX)
                     {
-                        o_PointsPlayerA++;
+                        o_PlayerA.Points++;
                     }
                     if (squareIsO)
                     {
-                        o_PointsPlayerB++;
+                        o_PlayerB.Points++;
                     }
                 }
             }

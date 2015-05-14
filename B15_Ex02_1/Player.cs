@@ -21,7 +21,8 @@ namespace B15_Ex02_1
             this.isComputer = i_IsComputer;
             this.shape = i_Shape;
             this.size = i_Size;
-            this.availableMoves = new bool[size,size];
+            this.availableMoves = new bool[size, size];
+
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -29,6 +30,7 @@ namespace B15_Ex02_1
                     this.availableMoves[i, j] = false;
                 }
             }
+
             firstAvailableMoves();
         }
 
@@ -52,8 +54,8 @@ namespace B15_Ex02_1
 
         public bool this[int i_I, int i_J]
         {
-            get  { return availableMoves[i_I,i_J]; }
-            set { this.availableMoves[i_I,i_J] = value; }
+            get { return availableMoves[i_I, i_J]; }
+            set { this.availableMoves[i_I, i_J] = value; }
         }
 
         public bool IsComp

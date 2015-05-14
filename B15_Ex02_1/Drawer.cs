@@ -1,10 +1,11 @@
 ﻿using System;
+
 namespace B15_Ex02_1
 {
     /// <summary>
     /// Draws current state of the board
     /// </summary>
-    class Drawer
+    public class Drawer
     {
         public static void DrawBoard(GameManager i_GameBoard)
         {

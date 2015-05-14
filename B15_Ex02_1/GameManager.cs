@@ -14,12 +14,12 @@ namespace B15_Ex02_1
         /// <summary>
         /// Number of human players
         /// </summary>
-        private int m_NumberOfPlayers;
+        private int m_numberOfPlayers;
         
         /// <summary>
         /// Set the players
         /// </summary>
-        private Player m_PlayerOne, m_PlayerTwo;
+        private Player m_playerOne, m_playerTwo;
         
         /// <summary>
         /// Coin matrix holds the current state of the game
@@ -29,12 +29,12 @@ namespace B15_Ex02_1
         /// <summary>
         /// Size of the board
         /// </summary>
-        private int m_Size;
+        private int m_size;
 
         /// <summary>
         /// Number of moves left to end game
         /// </summary>
-        private int m_TotalMovesLeft;
+        private int m_totalMovesLeft;
 
         /// <summary>
         /// Initializes a new instance of the Board class.
@@ -45,14 +45,14 @@ namespace B15_Ex02_1
         /// <param name="i_PlayerTwoName"></param>
         public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
         {
-            this.m_Size = i_Size;
-            m_NumberOfPlayers = i_NumberOfPlayers;
+            this.m_size = i_Size;
+            m_numberOfPlayers = i_NumberOfPlayers;
             gameBoard = new Coin[i_Size, i_Size];
 
-            m_PlayerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-            m_PlayerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
+            m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+            m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
-            this.m_TotalMovesLeft = (i_Size * 2) - 4;
+            this.m_totalMovesLeft = (i_Size * 2) - 4;
 
             setNewGame();
         }
@@ -63,22 +63,21 @@ namespace B15_Ex02_1
         private void setNewGame()
         {
             // Set all board to null.
-            for (int x = 0; x < m_Size; x++)
+            for (int x = 0; x < m_size; x++)
             {
-                for (int y = 0; y < m_Size; y++)
+                for (int y = 0; y < m_size; y++)
                 {
                     gameBoard[x, y] = Coin.Null;
                 }
             }
 
             // Place 4 coins in board
-            int halfBoard = (m_Size / 2) - 1;
+            int halfBoard = (m_size / 2) - 1;
             gameBoard[halfBoard + 1, halfBoard] = Coin.X;
             gameBoard[halfBoard, halfBoard + 1] = Coin.X;
 
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
-
 
             //TODO: DELTE.
  //           Drawer.drawBoard(this);
@@ -86,7 +85,7 @@ namespace B15_Ex02_1
 
         public int Size
         {
-            get { return m_Size; }
+            get { return m_size; }
         }
 
         public Coin this[int i_I, int i_J]
@@ -100,13 +99,11 @@ namespace B15_Ex02_1
         // runs the game
         public void RunGame()
         {
-
         }
 
         /// <summary>
         /// Get move from the user
         /// </summary>
-
         private void getMove()
         {
             bool isValidInput = false;
@@ -119,7 +116,7 @@ namespace B15_Ex02_1
                     int x = char.ToUpper(playerInput[0]) - 64;
                     int y = playerInput[1];
 
-                    if (x < 0 && y < 0 && x > m_Size && y > m_Size)
+                    if (x < 0 && y < 0 && x > m_size && y > m_size)
                     {
                         Console.WriteLine("Invalid Input! Please Try again...");
                     }

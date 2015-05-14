@@ -25,14 +25,14 @@ namespace B15_Ex02_1
             }
 
             if (directions[UpLeft])
-                {
+            {
                 checkMove(i_GameManager, i_NewX, i_NewY, -1, -1, i_Player);
-                }
+            }
 
             if (directions[Up])
-                {
+            {
                 checkMove(i_GameManager, i_NewX, i_NewY, -1, 0, i_Player);
-                }
+            }
 
             if (directions[UpRight])
             {
@@ -42,10 +42,10 @@ namespace B15_Ex02_1
             if (directions[Right])
             {
                 checkMove(i_GameManager, i_NewX, i_NewY, 0, 1, i_Player);
-        }
+            }
 
             if (directions[DownRight])
-        {
+            {
                 checkMove(i_GameManager, i_NewX, i_NewY, 1, 1, i_Player);
             }
 

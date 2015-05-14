@@ -106,13 +106,16 @@ namespace B15_Ex02_1
             int x, y;
 
             Player currentPlayer = m_playerOne;
+            Player otherPlayer = m_playerTwo;
 
             while (!isGameOver)
             {
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
+                otherPlayer = playerOneTurn ? m_playerTwo : m_playerOne;
                 getMove(currentPlayer, out  x, out y, ref isGameOver);
                 m_gameManager = this;
                 Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
+                Utils.UpadteAvailableMoves(this, ref otherPlayer);
                 Drawer.DrawBoard(this);
                 playerOneTurn = !playerOneTurn;
             }

@@ -98,9 +98,9 @@ namespace B15_Ex02_1
                         flipCoinsInRange(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, ref i_GameManager, i_CurrentPlayer, numberOfCoinsToFlip);
                         break;
                     }
-
-                    numberOfCoinsToFlip++;
                 }
+
+                numberOfCoinsToFlip++;
             }
         }
 
@@ -155,6 +155,10 @@ namespace B15_Ex02_1
             {
                 for (int j = 0; j < i_GameManager.Size; j++)
                 {
+                    if (i == 4 && j == 4)
+                    {
+                        int jjjj = 3;
+                    }
                     bool sqareWithOpponentCoin = i_GameManager[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
@@ -168,10 +172,10 @@ namespace B15_Ex02_1
         private static bool[] createDirectionArray(GameManager i_GameManager, int i_StartX, int i_StartJ, Coin i_Coin)
         {
             bool[] directions = new bool[8];
-            bool leftEdge = i_StartX == 0;
-            bool upEdge = i_StartJ == 0;
-            bool rightEdge = i_StartX == i_GameManager.Size - 1;
-            bool downEdge = i_StartJ == i_GameManager.Size - 1;
+            bool leftEdge = i_StartJ == 0;
+            bool upEdge = i_StartX == 0;
+            bool rightEdge = i_StartJ == i_GameManager.Size - 1;
+            bool downEdge = i_StartX == i_GameManager.Size - 1;
 
             if (!leftEdge)
             {
@@ -252,7 +256,7 @@ namespace B15_Ex02_1
                 canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, 0, -1, i_GameManager, i_Player);
                 if (canBeMove)
                 {
-                    i_Player[i_StartX, i_StartY - 1] = true;
+                    i_Player[i_StartX, i_StartY + 1] = true;
                 }
             }
 
@@ -291,7 +295,7 @@ namespace B15_Ex02_1
 
             for (int i = 0; i < numberOfIterations; i++)
             {
-                Coin squareCoin = i_GameManager[i_StartX + i_DirectionX, i_StartY + i_DirectionY];
+                Coin squareCoin = i_GameManager[i_StartX + (i_DirectionX * i), i_StartY + (i_DirectionY * i)];
                 bool isMyCoin = squareCoin == i_CurrentPlayer.ShapeCoin;
                 bool isOppCoin = squareCoin == opponentCoin;
 

@@ -112,7 +112,8 @@ namespace B15_Ex02_1
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
                 
                 getMove(currentPlayer, out  x, out y, ref isGameOver);
-                Utils.MakeMove(this, currentPlayer, x, y);
+                m_gameManager = this;
+                Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                 Drawer.DrawBoard(this);
                 playerOneTurn = !playerOneTurn;
             }

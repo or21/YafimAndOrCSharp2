@@ -117,12 +117,12 @@ namespace B15_Ex02_1
                 {
                     getMove(currentPlayer, out  x, out y, ref isGameOver);
                     m_gameManager = this;
+
                     if (isGameOver)
                     {
                         break;
                     }
 
-                    
                     Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                     Utils.UpadteAvailableMoves(this, ref otherPlayer);
 
@@ -158,7 +158,7 @@ namespace B15_Ex02_1
         /// <summary>
         /// Get move from the user
         /// </summary>
-        private void getMove(Player i_Player, out int i_X, out int i_Y, ref bool isGameOver)
+        private void getMove(Player i_Player, out int i_X, out int i_Y, ref bool io_IsGameOver)
         {
             bool isValidInput = false;
             i_X = 0;
@@ -189,10 +189,14 @@ namespace B15_Ex02_1
                     }
                 }
 
-                else if (playerInput.ToUpper().Equals("Q"))
+                else if (playerInput != null && playerInput.ToUpper().Equals("Q"))
                 {
                     isValidInput = true;
-                    isGameOver = true;
+                    io_IsGameOver = true;
+                }
+                else
+                {
+                        Console.WriteLine("Invalid Input! Please Try again...");
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace B15_Ex02_1
     {
         public Game()
         {
-            // first player always human
+            // first player always human.
             string playerOneName = setName();
             int numberOfPlayers = setNumberOfPlayers();
             string playerTwoName = (numberOfPlayers == 2) ? setName() : "Comp";

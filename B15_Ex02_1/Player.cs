@@ -12,20 +12,24 @@ namespace B15_Ex02_1
         private bool isComputer;
         private Coin shape;
         private bool[,] availableMoves;
-        private int size;
+        private int boardSize;
         private string name;
+        private int currentPoints;
+        private int numberOfAvailableMoves;
 
-        public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_Size)
+        public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_BoardSize)
         {
             this.name = i_PlayerName;
             this.isComputer = i_IsComputer;
             this.shape = i_Shape;
-            this.size = i_Size;
-            this.availableMoves = new bool[size, size];
+            this.boardSize = i_BoardSize;
+            this.availableMoves = new bool[boardSize, boardSize];
+            this.currentPoints = 0;
+            this.numberOfAvailableMoves = 0;
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < boardSize; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < boardSize; j++)
                 {
                     this.availableMoves[i, j] = false;
                 }
@@ -46,6 +50,18 @@ namespace B15_Ex02_1
         public Coin ShapeCoin
         {
             get { return shape; }
+        }
+
+        public int Points
+        {
+            get { return currentPoints; }
+            set { this.currentPoints = value; }
+        }
+
+        public int AvailableMoves
+        {
+            get { return numberOfAvailableMoves; }
+            set { this.numberOfAvailableMoves = value; }
         }
 
         public string Name

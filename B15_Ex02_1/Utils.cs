@@ -150,15 +150,12 @@ namespace B15_Ex02_1
         public static void UpadteAvailableMoves(GameManager i_GameManager, ref Player i_Player)
         {
             Coin opponentCoin = getOpponentCoin(i_Player);
+            i_Player.AvailableMoves = 0;
 
             for (int i = 0; i < i_GameManager.Size; i++)
             {
                 for (int j = 0; j < i_GameManager.Size; j++)
                 {
-                    if (i == 4 && j == 4)
-                    {
-                        int jjjj = 3;
-                    }
                     bool sqareWithOpponentCoin = i_GameManager[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
@@ -221,6 +218,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX, i_StartY - 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -230,6 +228,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX - 1, i_StartY - 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -239,6 +238,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX - 1, i_StartY] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -248,6 +248,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX - 1, i_StartY + 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -257,6 +258,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX, i_StartY + 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -266,6 +268,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX + 1, i_StartY + 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -275,6 +278,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX + 1, i_StartY] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
 
@@ -284,6 +288,7 @@ namespace B15_Ex02_1
                 if (canBeMove)
                 {
                     i_Player[i_StartX + 1, i_StartY - 1] = true;
+                    i_Player.AvailableMoves++;
                 }
             }
         }
@@ -311,6 +316,29 @@ namespace B15_Ex02_1
             }
 
             return false;
+        }
+
+        public static void CountPoints(GameManager i_GameManager, out int o_PointsPlayerA , out int o_PointsPlayerB )
+        {
+            o_PointsPlayerA = 0;
+            o_PointsPlayerB = 0;
+            for (int i = 0; i < i_GameManager.Size; i++)
+            {
+                for (int j = 0; j < i_GameManager.Size; j++)
+                {
+                    Coin squareCoin = i_GameManager[i, j];
+                    bool squareIsO = Coin.O == squareCoin;
+                    bool squareIsX = Coin.X == squareCoin;
+                    if (squareIsX)
+                    {
+                        o_PointsPlayerA++;
+                    }
+                    if (squareIsO)
+                    {
+                        o_PointsPlayerB++;
+                    }
+                }
+            }
         }
     }
 }

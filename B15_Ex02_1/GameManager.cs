@@ -194,6 +194,10 @@ namespace B15_Ex02_1
                     isValidInput = true;
                     io_IsGameOver = true;
                 }
+                else
+                {
+                        Console.WriteLine("Invalid Input! Please Try again...");
+                }
             }
         }
     }

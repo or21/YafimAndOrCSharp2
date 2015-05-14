@@ -116,9 +116,18 @@ namespace B15_Ex02_1
                 if (canMove)
                 {
                     getMove(currentPlayer, out  x, out y, ref isGameOver);
+
+                    if (isGameOver)
+                    {
+                        break;
+                    }
+
                     m_gameManager = this;
                     Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                     Utils.UpadteAvailableMoves(this, ref otherPlayer);
+
+                    Ex02.ConsoleUtils.Screen.Clear();
+                    
                     Drawer.DrawBoard(this);
 
 
@@ -134,7 +143,7 @@ namespace B15_Ex02_1
                     else
                     {
                         Player winner = (currentPlayer.Points > otherPlayer.Points) ? currentPlayer : otherPlayer;
-                        Console.WriteLine("No moves left! Game Over.\nThe Winner is {0}", winner);
+                        Console.WriteLine("No moves left! Game Over.The Winner is {0}", winner);
                     }
                 }
 

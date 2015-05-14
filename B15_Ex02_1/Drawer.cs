@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace B15_Ex02_1
 {
     /// <summary>
@@ -11,52 +6,49 @@ namespace B15_Ex02_1
     /// </summary>
     class Drawer
     {
-
-        public static void drawBoard(Board gameBoard)
+        public static void DrawBoard(Board i_GameBoard)
         {
-            int m_Size = gameBoard.Size;
-
             // 'A'
             int unicode = 65;
-            char asciiValue;
-            string separator = drawSeparator(m_Size);
+            int size = i_GameBoard.Size;
+            string separator = drawSeparator(size);
 
-            for (int x = -1; x < m_Size; x++)
+            for (int x = -1; x < size; x++)
             {
-                for (int y = -1; y < m_Size; y++)
+                for (int y = -1; y < size; y++)
                 {
                     if (x == -1 && y != -1)
                     {
-                        asciiValue = (char)unicode++;
-                        System.Console.Write(" {0}  ", asciiValue.ToString());
+                        char asciiValue = (char)unicode++;
+                        Console.Write(" {0}  ", asciiValue);
                     }
                     else if (x == -1 && y == -1)
                     {
-                        System.Console.Write("   ");
+                        Console.Write("   ");
                     }
                     else if (x != -1 && y == -1)
                     {
-                        System.Console.Write("{0} |", x + 1);
+                        Console.Write("{0} |", x + 1);
                     }
 
                     if (x > -1 && y > -1)
                     {
-                        if (gameBoard[x, y].Equals(Coin.Null))
+                        if (i_GameBoard[x, y].Equals(Coin.Null))
                         {
-                            System.Console.Write("   |");
+                            Console.Write("   |");
                         }
-                        else if (gameBoard[x, y].Equals(Coin.X))
+                        else if (i_GameBoard[x, y].Equals(Coin.X))
                         {
-                            System.Console.Write(" X |");
+                            Console.Write(" X |");
                         }
-                        else if (gameBoard[x, y].Equals(Coin.O))
+                        else if (i_GameBoard[x, y].Equals(Coin.O))
                         {
-                            System.Console.Write(" O |");
+                            Console.Write(" O |");
                         }
                     }
                 }
 
-                System.Console.WriteLine(separator);
+                Console.WriteLine(separator);
             }
         }
 
@@ -64,11 +56,11 @@ namespace B15_Ex02_1
         ///  Draws bottom border of each cell
         /// </summary>
         /// <returns>valid separator</returns>
-        private static string drawSeparator(int m_Size)
+        private static string drawSeparator(int i_Size)
         {
             string separator = "  ";
 
-            for (int i = 0; i < (4 * m_Size) + 1; i++)
+            for (int i = 0; i < (4 * i_Size) + 1; i++)
             {
                 separator += '=';
             }

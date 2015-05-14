@@ -13,12 +13,11 @@ namespace B15_Ex02_1
         private Coin shape;
         private bool[,] availableMoves;
         private int size;
+        private string name;
 
-        public string name;
-
-        public Player(bool i_IsComputer, Coin i_Shape, string playerName, int i_Size)
+        public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_Size)
         {
-            this.name = playerName;
+            this.name = i_PlayerName;
             this.isComputer = i_IsComputer;
             this.shape = i_Shape;
             this.size = i_Size;

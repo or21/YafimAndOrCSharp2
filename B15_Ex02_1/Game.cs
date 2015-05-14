@@ -12,16 +12,12 @@ namespace B15_Ex02_1
         {
             // first player always human
             string playerOneName = setName();
-
             int numberOfPlayers = setNumberOfPlayers();
-
             string playerTwoName = (numberOfPlayers == 2) ? setName() : "Comp";
-
             int size = setSize();
-
             Board b = new Board(size, numberOfPlayers, playerOneName, playerTwoName);
 
-            Drawer.drawBoard(b);
+            Drawer.DrawBoard(b);
             Console.ReadLine();
         }
 
@@ -29,19 +25,24 @@ namespace B15_Ex02_1
         {
             // default
             int size = 6;
-            bool flag = true;
-            while (flag)
+            bool isValidInput = false;
+            bool isValidSize = false;
+            while (!isValidInput)
             {
                 Console.Write("Please insert size of the board: ");
-                size = int.Parse(Console.ReadLine());
-                bool isValidSize = size == 8 || size == 6;
-                if (!isValidSize)
+                string inputFromUser = Console.ReadLine();
+                bool inputIsNumber = int.TryParse(inputFromUser, out size);
+                if (inputIsNumber)
+                {
+                    isValidSize = ((size == 8) || (size == 6));
+                }
+                if (!inputIsNumber || !isValidSize)
                 {
                     Console.WriteLine("Invalid Input! try again...");
                 }
                 else
                 {
-                    flag = false;
+                    isValidInput = true;
                 }
             }
 
@@ -53,45 +54,66 @@ namespace B15_Ex02_1
         /// </summary>
         private static string setName()
         {
-            string name = " ";
-            bool flag = true;
+            string name = "";
+            bool isValidInput = false;
 
-            while (flag)
+            while (!isValidInput)
             {
                 Console.Write("Please insert your name: ");
-                if (Console.ReadLine().Equals(name))
+                string nameFromUser = Console.ReadLine();
+                bool containsLetters = nameFromUser != null && stringContainsLetterOrDigits(nameFromUser);
+                if (!containsLetters)
                 {
                     Console.WriteLine("Invalid Name. try again");
                 }
                 else
                 {
-                    flag = false;
+                    name = nameFromUser;
+                    isValidInput = true;
                 }
             }
 
             return name;
         }
 
+        private static bool stringContainsLetterOrDigits(string i_InputString)
+        {
+            foreach (char c in i_InputString)
+            {
+                if (!char.IsWhiteSpace(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private static int setNumberOfPlayers()
         {
             Console.Write("Please insert number of players: ");
-            bool flag = true;
+            bool isValidInput = false;
+            bool isValidNumberOfPlayers = false;
 
             // default
             int numberOfPlayers = 1;
 
-            while (flag)
+            while (!isValidInput)
             {
-                numberOfPlayers = int.Parse(Console.ReadLine());
-                bool isValidInput = numberOfPlayers == 2 || numberOfPlayers == 1;
+                string inputFromUser = Console.ReadLine();
+                bool inputIsNumber  = int.TryParse(inputFromUser, out numberOfPlayers);
 
-                if (!isValidInput)
+                if (inputIsNumber)
+                {
+                    isValidNumberOfPlayers = ((numberOfPlayers == 2) || (numberOfPlayers == 1));
+                }
+                
+                if (!inputIsNumber || !isValidNumberOfPlayers)
                 {
                     Console.WriteLine("Invalid Input! Only one or two players allowed");
                 }
                 else
                 {
-                    flag = false;
+                    isValidInput = true;
                 }
             }
             if (numberOfPlayers == 2)

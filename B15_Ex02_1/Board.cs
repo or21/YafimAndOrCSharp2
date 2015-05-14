@@ -41,6 +41,8 @@ namespace B15_Ex02_1
         /// </summary>
         /// <param name="i_Size"> size of the board</param>
         /// <param name="i_NumberOfPlayers"> number of current human players </param>
+        /// <param name="i_PlayerOneName"></param>
+        /// <param name="i_PlayerTwoName"></param>
         public Board(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
         {
             this.m_Size = i_Size;
@@ -107,25 +109,24 @@ namespace B15_Ex02_1
 
         private void getMove()
         {
+            bool isValidInput = false;
 
-            string playerInput;
-            int x, y;
-            bool flag = true;
-
-            while (flag)
+            while (!isValidInput)
             {
-                playerInput = Console.ReadLine();
-
-                x = Char.ToUpper(playerInput[0]) - 64;
-                y = playerInput[1];
-
-                if (x < 0 && y < 0 && x > m_Size && y > m_Size)
+                string playerInput = Console.ReadLine();
+                if (playerInput != null)
                 {
-                    Console.WriteLine("Invalid Input! Please Try again...");
-                }
-                else
-                {
-                    flag = false;
+                    int x = char.ToUpper(playerInput[0]) - 64;
+                    int y = playerInput[1];
+
+                    if (x < 0 && y < 0 && x > m_Size && y > m_Size)
+                    {
+                        Console.WriteLine("Invalid Input! Please Try again...");
+                    }
+                    else
+                    {
+                        isValidInput = true;
+                    }
                 }
             }
         }

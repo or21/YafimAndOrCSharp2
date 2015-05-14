@@ -101,28 +101,29 @@ namespace B15_Ex02_1
         {
             bool playerOneTurn = true;
             bool isGameOver = false;
+            int x, y;
+
+            Player currentPlayer = m_playerOne;
+
             while (!isGameOver)
             {
-                if (playerOneTurn)
-                {
-                    getMove(m_playerOne);
+                currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
+                
+                getMove(currentPlayer, out  x, out y, isGameOver);
+                Utils.MakeMove(this, m_playerOne, y, x);
+                Drawer.DrawBoard(this);
                     playerOneTurn = false;
                 }
-                else
-                {
-                    getMove(m_playerTwo);
-                    playerOneTurn = true;
-                }
-            }
         }
 
         /// <summary>
         /// Get move from the user
         /// </summary>
-        private void getMove(Player i_Player)
+        private void getMove(Player i_Player, out int x, out int y, bool isGameOver)
         {
             bool isValidInput = false;
-            
+            x = 0;
+            y = 0;
             Console.WriteLine("{0}'s Turn: Please make a move: ", i_Player.Name);
 
             while (!isValidInput)
@@ -130,8 +131,8 @@ namespace B15_Ex02_1
                 string playerInput = Console.ReadLine();
                 if (playerInput != null && playerInput.Length == 2)
                 {
-                    int y = char.ToUpper(playerInput[0]) - 64 - 1;
-                    int x = playerInput[1] - '0' - 1;
+                    y = char.ToUpper(playerInput[0]) - 64 - 1;
+                    x = playerInput[1] - '0' - 1;
                     bool isValid = x >= 0 && y >= 0 && x < m_size && y < m_size;
 
                     if (!isValid)

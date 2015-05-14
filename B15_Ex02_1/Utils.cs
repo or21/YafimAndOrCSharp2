@@ -204,7 +204,7 @@ namespace B15_Ex02_1
                     directions[DownRight] = i_GameManager[i_StartX + 1, i_StartJ + 1] == i_Coin;
                 }
             }
-            
+
             return directions;
         }
 

@@ -13,7 +13,7 @@ namespace B15_Ex02_1
         private const int Down = 6;
         private const int DownLeft = 7;
 
-        public static void MakeMove(GameManager i_GameManager, Player i_Player, int i_NewX, int i_NewY)
+        public static void MakeMove(ref GameManager i_GameManager, Player i_Player, int i_NewX, int i_NewY)
         {
             i_GameManager[i_NewX, i_NewY] = i_Player.ShapeCoin;
 
@@ -21,42 +21,42 @@ namespace B15_Ex02_1
             bool[] directions = createDirectionArray(i_GameManager, i_NewX, i_NewY, opponentCoin);
             if (directions[Left])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, 0, -1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, 0, -1, i_Player);
             }
 
             if (directions[UpLeft])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, -1, -1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, -1, -1, i_Player);
             }
 
             if (directions[Up])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, -1, 0, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, -1, 0, i_Player);
             }
 
             if (directions[UpRight])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, -1, 1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, -1, 1, i_Player);
             }
 
             if (directions[Right])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, 0, 1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, 0, 1, i_Player);
             }
 
             if (directions[DownRight])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, 1, 1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, 1, 1, i_Player);
             }
 
             if (directions[Down])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, 1, 0, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, 1, 0, i_Player);
             }
 
             if (directions[DownLeft])
             {
-                checkMove(i_GameManager, i_NewX, i_NewY, 1, -1, i_Player);
+                checkMove(ref i_GameManager, i_NewX, i_NewY, 1, -1, i_Player);
             }
 
             // update valid moves for each player
@@ -80,7 +80,7 @@ namespace B15_Ex02_1
             return inputAsInt - v_Unicode;
         }
 
-        private static void checkMove(GameManager i_GameManager, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Player i_CurrentPlayer)
+        private static void checkMove(ref GameManager i_GameManager, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Player i_CurrentPlayer)
         {
             int numberOfIterations = numOfIterationsInDirection(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, i_GameManager);
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
@@ -88,13 +88,14 @@ namespace B15_Ex02_1
 
             for (int i = 1; i < numberOfIterations; i++)
             {
-                bool isOpponentCoin = i_GameManager[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] == opponentCoin;
+                bool isOpponentCoin = i_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] == opponentCoin;
                 if (!isOpponentCoin)
                 {
-                    bool isCurrentPlayerCoin = i_GameManager[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] == i_CurrentPlayer.ShapeCoin;
+                    bool isCurrentPlayerCoin = i_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] == i_CurrentPlayer.ShapeCoin;
                     if (isCurrentPlayerCoin)
                     {
-                        flipCoinsInRange(i_OrigX, i_OrigY, -i_DirectionX, -i_DirectionY, i_GameManager, i_CurrentPlayer, numberOfCoinsToFlip);
+                        numberOfCoinsToFlip++;
+                        flipCoinsInRange(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, ref i_GameManager, i_CurrentPlayer, numberOfCoinsToFlip);
                         break;
                     }
 
@@ -103,11 +104,11 @@ namespace B15_Ex02_1
             }
         }
 
-        private static void flipCoinsInRange(int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, GameManager i_GameManager, Player i_CurrentPlayer, int i_NumberOfCoinsToFlip)
+        private static void flipCoinsInRange(int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, ref GameManager i_GameManager, Player i_CurrentPlayer, int i_NumberOfCoinsToFlip)
         {
-            for (int i = 0; i < i_NumberOfCoinsToFlip; i++)
+            for (int i = 1; i < i_NumberOfCoinsToFlip + 1; i++)
             {
-                i_GameManager[i_OrigX + i_DirectionX, i_OrigY + i_DirectionY] = i_CurrentPlayer.ShapeCoin;
+                i_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] = i_CurrentPlayer.ShapeCoin;
             }
         }
 

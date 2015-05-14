@@ -15,17 +15,17 @@ namespace B15_Ex02_1
         /// Number of human players
         /// </summary>
         private int m_numberOfPlayers;
-        
+
         /// <summary>
         /// Set the players
         /// </summary>
         private Player m_playerOne, m_playerTwo;
-        
+
         /// <summary>
         /// Coin matrix holds the current state of the game
         /// </summary>
         private Coin[,] gameBoard;
-        
+
         /// <summary>
         /// Size of the board
         /// </summary>
@@ -35,6 +35,8 @@ namespace B15_Ex02_1
         /// Number of moves left to end game
         /// </summary>
         private int m_totalMovesLeft;
+
+        private GameManager m_gameManager;
 
         /// <summary>
         /// Initializes a new instance of the Board class.
@@ -51,7 +53,7 @@ namespace B15_Ex02_1
 
             m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
             m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
-        
+
             this.m_totalMovesLeft = (i_Size * 2) - 4;
             setNewGame();
         }
@@ -108,12 +110,13 @@ namespace B15_Ex02_1
             while (!isGameOver)
             {
                 currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
-                
+
                 getMove(currentPlayer, out  x, out y, isGameOver);
-                Utils.MakeMove(this, m_playerOne, y, x);
+                m_gameManager = this;
+                Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                 Drawer.DrawBoard(this);
-                    playerOneTurn = false;
-                }
+                playerOneTurn = !playerOneTurn;
+            }
         }
 
         /// <summary>
@@ -162,11 +165,11 @@ namespace B15_Ex02_1
         /// Black coin
         /// </summary>
         X,
- 
+
         /// <summary>
         /// White coin
         /// </summary>
-        O, 
+        O,
 
         /// <summary>
         /// No coin

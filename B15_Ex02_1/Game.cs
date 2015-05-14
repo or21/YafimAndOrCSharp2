@@ -11,6 +11,9 @@ namespace B15_Ex02_1
     /// </summary>
     public class Game
     {
+        /// <summary>
+        /// Initializes game with user properties
+        /// </summary>
         public Game()
         {
             // first player always human.
@@ -27,6 +30,10 @@ namespace B15_Ex02_1
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private static int setSize()
         {
             // default

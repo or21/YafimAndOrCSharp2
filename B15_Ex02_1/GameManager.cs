@@ -96,8 +96,6 @@ namespace B15_Ex02_1
             set { gameBoard[i_I, i_J] = value; }
         }
 
-        // manage the game
-
         // runs the game
         public void RunGame()
         {
@@ -106,6 +104,7 @@ namespace B15_Ex02_1
             int x, y;
 
             Player currentPlayer = m_playerOne;
+            Player otherPlayer = m_playerTwo;
 
             while (!isGameOver)
             {
@@ -114,8 +113,11 @@ namespace B15_Ex02_1
                 getMove(currentPlayer, out  x, out y, ref isGameOver);
                 m_gameManager = this;
                 Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
+                Utils.UpadteAvailableMoves(this, ref otherPlayer);
+
                 Drawer.DrawBoard(this);
                 playerOneTurn = !playerOneTurn;
+                otherPlayer = currentPlayer;
             }
 
             Console.WriteLine("Thank You for playing...");
@@ -129,7 +131,7 @@ namespace B15_Ex02_1
             bool isValidInput = false;
             x = 0;
             y = 0;
-            Console.WriteLine("{0}'s Turn: Please make a move: ", i_Player.Name);
+            Console.WriteLine("{0}'s Turn: Please make a move ({1}): ", i_Player.Name);
 
             while (!isValidInput)
             {

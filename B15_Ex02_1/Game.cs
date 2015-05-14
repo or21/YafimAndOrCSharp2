@@ -35,7 +35,7 @@ namespace B15_Ex02_1
             bool isValidSize = false;
             while (!isValidInput)
             {
-                Console.Write("Please insert size of the board: ");
+                Console.Write("Please insert size of the board[8/6]: ");
                 string inputFromUser = Console.ReadLine();
                 bool inputIsNumber = int.TryParse(inputFromUser, out size);
                 if (inputIsNumber)
@@ -98,7 +98,7 @@ namespace B15_Ex02_1
 
         private static int setNumberOfPlayers()
         {
-            Console.Write("Please insert number of players: ");
+            Console.Write("Please insert number of players[1/2]: ");
             bool isValidInput = false;
             bool isValidNumberOfPlayers = false;
 
@@ -127,7 +127,7 @@ namespace B15_Ex02_1
 
             if (numberOfPlayers == 2)
             {
-                Console.WriteLine("Hello Player2 ");
+                Console.WriteLine("Hello Player2! ");
             }
 
             return numberOfPlayers;

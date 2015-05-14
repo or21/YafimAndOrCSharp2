@@ -82,8 +82,9 @@ namespace B15_Ex02_1
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
             //update availble moves for each player
-            Utils.UpadteAvailableMoves(this, ref m_PlayerOne);
-            Utils.UpadteAvailableMoves(this, ref m_PlayerTwo);
+            Utils.UpadteAvailableMoves(this, ref m_playerOne);
+
+            Utils.UpadteAvailableMoves(this, ref m_playerTwo);
         }
 
         public int Size
@@ -104,28 +105,29 @@ namespace B15_Ex02_1
         {
             bool playerOneTurn = true;
             bool isGameOver = false;
+            int x, y;
+
+            Player currentPlayer = m_playerOne;
+
             while (!isGameOver)
             {
-                if (playerOneTurn)
-                {
-                    getMove(m_playerOne);
-                    playerOneTurn = false;
-                }
-                else
-                {
-                    getMove(m_playerTwo);
-                    playerOneTurn = true;
-                }
+                currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
+                
+                getMove(currentPlayer, out  x, out y, isGameOver);
+                Utils.MakeMove(this, m_playerOne, y, x);
+                Drawer.DrawBoard(this);
+                playerOneTurn = false;
             }
         }
 
         /// <summary>
         /// Get move from the user
         /// </summary>
-        private void getMove(Player i_Player)
+        private void getMove(Player i_Player, out int x, out int y, bool isGameOver)
         {
             bool isValidInput = false;
-            
+            x = 0;
+            y = 0;
             Console.WriteLine("{0}'s Turn: Please make a move: ", i_Player.Name);
 
             while (!isValidInput)
@@ -133,8 +135,8 @@ namespace B15_Ex02_1
                 string playerInput = Console.ReadLine();
                 if (playerInput.Length == 2)
                 {
-                    int x = char.ToUpper(playerInput[0]) - 64 - 1;
-                    int y = playerInput[1] - '0' - 1;
+                    y = char.ToUpper(playerInput[0]) - 64 - 1;
+                    x = playerInput[1] - '0' - 1;
                     bool isValid = x >= 0 && y >= 0 && x < m_size && y < m_size;
 
                     if (!isValid)

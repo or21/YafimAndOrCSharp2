@@ -22,7 +22,7 @@ namespace B15_Ex02_1
             
             Drawer.DrawBoard(gm);
 
-          //  gm.RunGame();
+            gm.RunGame();
 
             Console.ReadLine();
         }

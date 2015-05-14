@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace B15_Ex02_1
 {
     /// <summary>
-    /// This class holds the GUI and Initializes a new game
+    /// Manage entire game
     /// </summary>
     public class GameManager
     {
@@ -79,8 +79,6 @@ namespace B15_Ex02_1
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
-            //TODO: DELTE.
- //           Drawer.drawBoard(this);
         }
 
         public int Size
@@ -99,31 +97,56 @@ namespace B15_Ex02_1
         // runs the game
         public void RunGame()
         {
+            bool playerOneTurn = true;
+            bool isGameOver = false;
+            while (!isGameOver)
+            {
+                if (playerOneTurn)
+                {
+                    getMove(m_playerOne);
+                    playerOneTurn = false;
+        }
+                else
+                {
+                    getMove(m_playerTwo);
+                    playerOneTurn = true;
+                }
+            }
         }
 
         /// <summary>
         /// Get move from the user
         /// </summary>
-        private void getMove()
+
+        private void getMove(Player i_Player)
         {
             bool isValidInput = false;
+
+            Console.WriteLine("{0}'s Turn: Please make a move: ", i_Player.Name);
 
             while (!isValidInput)
             {
                 string playerInput = Console.ReadLine();
-                if (playerInput != null)
+                if (playerInput.Length == 2)
                 {
-                    int x = char.ToUpper(playerInput[0]) - 64;
-                    int y = playerInput[1];
+                    int x = char.ToUpper(playerInput[0]) - 64 - 1;
+                    int y = playerInput[1] - '0' - 1;
+                    bool isValid = x >= 0 && y >= 0 && x < m_size && y < m_size;
 
-                    if (x < 0 && y < 0 && x > m_size && y > m_size)
+                    if (!isValid)
                     {
                         Console.WriteLine("Invalid Input! Please Try again...");
                     }
                     else
                     {
-                        isValidInput = true;
+                        isValidInput = i_Player[x, y];
+
+                        if (!isValidInput)
+                        {
+                            Console.WriteLine("Can't Move here. Try again...");
+                        }
                     }
+
                 }
             }
         }

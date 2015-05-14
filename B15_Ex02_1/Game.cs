@@ -14,10 +14,10 @@ namespace B15_Ex02_1
         public Game()
         {
             // first player always human.
-            string playerOneName = "yafim";//setName();
-            int numberOfPlayers = 2;//setNumberOfPlayers();
-            string playerTwoName = "Or";//(numberOfPlayers == 2) ? setName() : "Comp";
-            int size = 8;//setSize();
+            string playerOneName = "yafim"; //setName();
+            int numberOfPlayers = 2; //setNumberOfPlayers();
+            string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
+            int size = 8; //setSize();
             GameManager gm = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName);
             
             Drawer.DrawBoard(gm);

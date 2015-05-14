@@ -36,6 +36,8 @@ namespace B15_Ex02_1
         /// </summary>
         private int m_totalMovesLeft;
 
+        private GameManager m_gameManager;
+
         /// <summary>
         /// Initializes a new instance of the Board class.
         /// </summary>
@@ -53,9 +55,6 @@ namespace B15_Ex02_1
             m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_totalMovesLeft = (i_Size * 2) - 4;
-
-
-
             setNewGame();
         }
 
@@ -83,7 +82,6 @@ namespace B15_Ex02_1
 
             //update availble moves for each player
             Utils.UpadteAvailableMoves(this, ref m_playerOne);
-
             Utils.UpadteAvailableMoves(this, ref m_playerTwo);
         }
 
@@ -135,7 +133,7 @@ namespace B15_Ex02_1
             while (!isValidInput)
             {
                 string playerInput = Console.ReadLine();
-                if (playerInput.Length == 2)
+                if (playerInput != null && playerInput.Length == 2)
                 {
                     y = char.ToUpper(playerInput[0]) - 64 - 1;
                     x = playerInput[1] - '0' - 1;

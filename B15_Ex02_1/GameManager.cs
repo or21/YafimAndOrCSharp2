@@ -53,9 +53,6 @@ namespace B15_Ex02_1
             m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_totalMovesLeft = (i_Size * 2) - 4;
-
-
-
             setNewGame();
         }
 
@@ -82,8 +79,8 @@ namespace B15_Ex02_1
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
             //update availble moves for each player
-            Utils.UpadteAvailableMoves(this, ref m_PlayerOne);
-            Utils.UpadteAvailableMoves(this, ref m_PlayerTwo);
+            Utils.UpadteAvailableMoves(this, ref m_playerOne);
+            Utils.UpadteAvailableMoves(this, ref m_playerTwo);
         }
 
         public int Size
@@ -131,10 +128,10 @@ namespace B15_Ex02_1
             while (!isValidInput)
             {
                 string playerInput = Console.ReadLine();
-                if (playerInput.Length == 2)
+                if (playerInput != null && playerInput.Length == 2)
                 {
-                    int x = char.ToUpper(playerInput[0]) - 64 - 1;
-                    int y = playerInput[1] - '0' - 1;
+                    int y = char.ToUpper(playerInput[0]) - 64 - 1;
+                    int x = playerInput[1] - '0' - 1;
                     bool isValid = x >= 0 && y >= 0 && x < m_size && y < m_size;
 
                     if (!isValid)

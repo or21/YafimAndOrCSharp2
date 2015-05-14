@@ -16,7 +16,8 @@ namespace B15_Ex02_1
         public static void MakeMove(ref GameManager i_GameManager, Player i_Player, int i_NewX, int i_NewY)
         {
             i_GameManager[i_NewX, i_NewY] = i_Player.ShapeCoin;
-            //
+            i_Player[i_NewX, i_NewY] = false;
+            
             Coin opponentCoin = getOpponentCoin(i_Player);
             bool[] directions = createDirectionArray(i_GameManager, i_NewX, i_NewY, opponentCoin);
             if (directions[Left])
@@ -98,7 +99,7 @@ namespace B15_Ex02_1
                         flipCoinsInRange(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, ref i_GameManager, i_CurrentPlayer, numberOfCoinsToFlip);
                         break;
                     }
-                }
+                } 
 
                 numberOfCoinsToFlip++;
             }
@@ -159,6 +160,7 @@ namespace B15_Ex02_1
                     bool sqareWithOpponentCoin = i_GameManager[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
+                        i_Player[i, j] = false;
                         bool[] directions = createDirectionArray(i_GameManager, i, j, Coin.Null);
                         checkAllDirections(i, j, directions, i_GameManager, ref i_Player);
                     }

@@ -9,7 +9,7 @@ namespace B15_Ex02_1
     /// <summary>
     /// Initializes a new game with given parameters.
     /// </summary>
-    class Game
+    public class Game
     {
         public Game()
         {

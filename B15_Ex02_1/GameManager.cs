@@ -78,7 +78,6 @@ namespace B15_Ex02_1
 
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
-
         }
 
         public int Size
@@ -117,7 +116,6 @@ namespace B15_Ex02_1
         /// <summary>
         /// Get move from the user
         /// </summary>
-
         private void getMove(Player i_Player)
         {
             bool isValidInput = false;
@@ -146,7 +144,6 @@ namespace B15_Ex02_1
                             Console.WriteLine("Can't Move here. Try again...");
                         }
                     }
-
                 }
             }
         }

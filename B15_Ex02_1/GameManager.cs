@@ -116,13 +116,13 @@ namespace B15_Ex02_1
                 if (canMove)
                 {
                     getMove(currentPlayer, out  x, out y, ref isGameOver);
-
+                    m_gameManager = this;
                     if (isGameOver)
                     {
                         break;
                     }
 
-                    m_gameManager = this;
+                    
                     Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                     Utils.UpadteAvailableMoves(this, ref otherPlayer);
 

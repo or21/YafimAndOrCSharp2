@@ -10,14 +10,14 @@ namespace B15_Ex02_1
     {
         public Game()
         {
-            // first player always human
+            // first player always human.
             string playerOneName = setName();
             int numberOfPlayers = setNumberOfPlayers();
             string playerTwoName = (numberOfPlayers == 2) ? setName() : "Comp";
             int size = setSize();
-            Board b = new Board(size, numberOfPlayers, playerOneName, playerTwoName);
+            GameManager gm = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName);
 
-            Drawer.DrawBoard(b);
+            Drawer.DrawBoard(gm);
             Console.ReadLine();
         }
 

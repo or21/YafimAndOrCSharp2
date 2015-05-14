@@ -16,7 +16,7 @@ namespace B15_Ex02_1
         public static void MakeMove(ref GameManager i_GameManager, Player i_Player, int i_NewX, int i_NewY)
         {
             i_GameManager[i_NewX, i_NewY] = i_Player.ShapeCoin;
-
+            //
             Coin opponentCoin = getOpponentCoin(i_Player);
             bool[] directions = createDirectionArray(i_GameManager, i_NewX, i_NewY, opponentCoin);
             if (directions[Left])

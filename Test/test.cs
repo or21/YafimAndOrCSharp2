@@ -11,9 +11,17 @@ namespace Test
         public static void Main()
         {
             char c = 'C';
-            int num = (int) c;
+            int num = (int) MyEnum.B;
             Console.WriteLine(num);
             Console.ReadLine();
+        }
+
+        public enum MyEnum
+        {
+            A = 0,
+            B,
+            C,
+            D
         }
     }
 }

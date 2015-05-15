@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
@@ -16,7 +11,6 @@ namespace B15_Ex02_1
         private string name;
         private int currentPoints;
         private int numberOfAvailableMoves;
-
         private List<Coord> possibleMovesCoordinates;
 
         public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_BoardSize)
@@ -83,11 +77,10 @@ namespace B15_Ex02_1
             get { return possibleMovesCoordinates; }
             set { this.possibleMovesCoordinates = value; }
         }
-
     }
 
     /// <summary>
-    /// Struc holds coordinate (x,y)
+    /// Struct holds coordinate (x,y)
     /// </summary>
     public struct Coord
     {

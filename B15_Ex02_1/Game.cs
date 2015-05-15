@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
@@ -14,27 +10,24 @@ namespace B15_Ex02_1
         /// <summary>
         /// Controls and manages the running game
         /// </summary>
-        private GameManager m_gameManager;
+        private GameManager gameManager;
 
         /// <summary>
         /// Initializes a new instance of the Game class.
         /// </summary>
         public Game()
         {
-            /// first player always human.
-            string playerOneName = "yafim"; /// setName();
-            int numberOfPlayers = 1; //setNumberOfPlayers();
-            string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
-            int size = 6;//setSize();
+            // first player always human.
+            string playerOneName = setName();
+            int numberOfPlayers = setNumberOfPlayers();
+            string playerTwoName = (numberOfPlayers == 2) ? setName() : "Comp";
+            int size = setSize();
             bool runGame = true;
             while (runGame)
             {
-                m_gameManager = new GameManager(size, numberOfPlayers, playerOneName, "Comp", runGame);
-
-                Drawer.DrawBoard(m_gameManager);
-
-                m_gameManager.RunGame();
-
+                gameManager = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName, runGame);
+                Drawer.DrawBoard(gameManager);
+                gameManager.RunGame();
                 runGame = playAgain();
             }
 
@@ -54,7 +47,7 @@ namespace B15_Ex02_1
             bool isValidInput = false;
             bool isValidSize = false;
 
-            Console.Write("Please insert size of the board[8/6]: ");
+            Console.Write("Please insert size of the board[6/8]: ");
 
             while (!isValidInput)
             {
@@ -136,28 +129,13 @@ namespace B15_Ex02_1
 
             // Some flags for input validation
             bool isValidInput = false;
-            bool isValidNumberOfPlayers = false;
-
-            Console.Write("Please insert number of players[1/2]: ");
 
             while (!isValidInput)
             {
+                Console.Write("Please insert number of players[1/2]: ");
                 string inputFromUser = Console.ReadLine();
                 bool inputIsNumber  = int.TryParse(inputFromUser, out numberOfPlayers);
-
-                if (inputIsNumber)
-                {
-                    isValidNumberOfPlayers = numberOfPlayers == 2 || numberOfPlayers == 1;
-                }
-                
-                if (!inputIsNumber || !isValidNumberOfPlayers)
-                {
-                    Console.WriteLine("Invalid Input! Only one or two players allowed");
-                }
-                else
-                {
-                    isValidInput = true;
-                }
+                isValidInput = isValidNumberOfPlayers(inputIsNumber, numberOfPlayers);
             }
 
             if (numberOfPlayers == 2)
@@ -168,31 +146,51 @@ namespace B15_Ex02_1
             return numberOfPlayers;
         }
 
+        private static bool isValidNumberOfPlayers(bool i_InputIsNumber, int i_NumberOfPlayers)
+        {
+            bool isValidInput = false;
+            bool isValidNumberOfPlayers = false;
+            if (i_InputIsNumber)
+            {
+                isValidNumberOfPlayers = i_NumberOfPlayers == 2 || i_NumberOfPlayers == 1;
+            }
+
+            if (!i_InputIsNumber || !isValidNumberOfPlayers)
+            {
+                Console.WriteLine("Invalid Input! Only one or two players allowed");
+            }
+            else
+            {
+                isValidInput = true;
+            }
+            return isValidInput;
+        }
+
         /// <summary>
         /// Ask the user if he wants play this game again
         /// </summary>
         /// <returns>true for play again. false for end game.</returns>
-        private bool playAgain()
+        private static bool playAgain()
         {
             Console.Write("Would you like to play again? [Y/N]: ");
 
             bool runGame = false;
-            bool flag = true;
-            while (flag)
+            bool isValidInput = false;
+            while (!isValidInput)
             {
                 string playAgain = Console.ReadLine();
                 
-                // Valid input
-                bool isValid = playAgain.ToUpper().Equals("N") || playAgain.ToUpper().Equals("Y");
+                // Valid answer
+                bool isValidAnswer = playAgain != null && (playAgain.ToUpper().Equals("N") || playAgain.ToUpper().Equals("Y"));
 
-                if (!isValid)
+                if (!isValidAnswer)
                 {
                     Console.WriteLine("Invalid Input! Try again... ");
                 }
                 else
                 {
-                    runGame = playAgain.ToUpper().Equals("Y") ? true : false;
-                    flag = false;
+                    runGame = playAgain.ToUpper().Equals("Y");
+                    isValidInput = true;
                 }
             }
 

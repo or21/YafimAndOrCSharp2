@@ -15,45 +15,47 @@ namespace B15_Ex02_1
         /// <summary>
         /// Clone instance of GameManager
         /// </summary>
-        /// <param name="io_GameManagerToClone">Instance to clone</param>
+        /// <param name="i_GameManagerToClone">Instance to clone</param>
         /// <param name="i_Player">Current player</param>
         /// <returns>Clone of io_GameManagerToClone</returns>
-        private static GameManager cloneGameManager(GameManager io_GameManagerToClone, Player i_Player)
+        private static GameManager cloneGameManager(GameManager i_GameManagerToClone, Player i_Player)
         {
-            GameManager clonedGameManager = new GameManager(io_GameManagerToClone.Size, 1, i_Player.Name, "Comp", false);
-            for (int i = 0; i < io_GameManagerToClone.Size; i++)
+            GameManager clonedGameManager = new GameManager(i_GameManagerToClone.Size, 1, i_Player.Name, "Comp", false);
+            for (int i = 0; i < i_GameManagerToClone.Size; i++)
             {
-                for (int j = 0; j < io_GameManagerToClone.Size; j++)
+                for (int j = 0; j < i_GameManagerToClone.Size; j++)
                 {
-                    clonedGameManager[i, j] = io_GameManagerToClone[i, j];
+                    clonedGameManager[i, j] = i_GameManagerToClone[i, j];
                 }
             }
+
             return clonedGameManager;
         }
 
         /// <summary>
         /// Clone instance of Player
         /// </summary>
-        /// <param name="io_PlayerToClone">Instance to clone</param>
+        /// <param name="i_PlayerToClone">Instance to clone</param>
         /// <returns>Clone of io_PlayerToClone</returns>
-        private static Player clonePlayer(Player io_PlayerToClone)
+        private static Player clonePlayer(Player i_PlayerToClone)
         {
-            int size = io_PlayerToClone.BoardSize;
+            int size = i_PlayerToClone.BoardSize;
 
-            Player clonedPlayer = new Player(true, io_PlayerToClone.ShapeCoin, io_PlayerToClone.Name, size);
+            Player clonedPlayer = new Player(true, i_PlayerToClone.ShapeCoin, i_PlayerToClone.Name, size);
 
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    clonedPlayer[i, j] = io_PlayerToClone[i, j];
+                    clonedPlayer[i, j] = i_PlayerToClone[i, j];
                 }
             }
 
-            foreach (Coord c in io_PlayerToClone.PossibleMovesCoordinates)
+            foreach (Coord c in i_PlayerToClone.PossibleMovesCoordinates)
             {
                 clonedPlayer.PossibleMovesCoordinates.Add(c);
             }
+
             return clonedPlayer;
         }
 
@@ -88,9 +90,9 @@ namespace B15_Ex02_1
         /// </summary>
         /// <param name="i_CurrentGameState"></param>
         /// <param name="i_Player"></param>
-        /// <param name="io_X"></param>
-        /// <param name="io_Y"></param>
-        public static void GetAiMove(GameManager i_CurrentGameState, Player i_Player, out int io_X, out int io_Y)
+        /// <param name="o_X"></param>
+        /// <param name="o_Y"></param>
+        public static void GetAiMove(GameManager i_CurrentGameState, Player i_Player, out int o_X, out int o_Y)
         {
             /*
             // Random choose! - WORKING... 
@@ -105,8 +107,8 @@ namespace B15_Ex02_1
 
             int maxMovesSoFar = 0;
 
-            io_X = 0;
-            io_Y = 0;
+            o_X = 0;
+            o_Y = 0;
 
             foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
@@ -118,17 +120,16 @@ namespace B15_Ex02_1
 
                 if (availableMovesForCurrentStep > maxMovesSoFar)
                 {
-                    io_X = tempX;
-                    io_Y = tempY;
+                    o_X = tempX;
+                    o_Y = tempY;
                     maxMovesSoFar = availableMovesForCurrentStep;
                 }
 
                 tempPlayer = clonePlayer(i_Player);
                 tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
-            
             }
-           
         }
+
         /// <summary>
         /// Gets opponent coin shape
         /// </summary>
@@ -159,11 +160,11 @@ namespace B15_Ex02_1
 
         private static void checkMove(ref GameManager io_GameManager, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Player i_CurrentPlayer)
         {
-            int numberOfIterations = numOfIterationsInDirection(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, io_GameManager);
+            int numberOfIterations = numOfSquaresToCheckInDirection(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, io_GameManager);
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
             int numberOfCoinsToFlip = 0;
 
-            for (int i = 1; i < numberOfIterations; i++)
+            for (int i = 1; i < numberOfIterations + 1; i++)
             {
                 bool isOpponentCoin = io_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] == opponentCoin;
                 if (!isOpponentCoin)
@@ -189,7 +190,7 @@ namespace B15_Ex02_1
             }
         }
 
-        private static int numOfIterationsInDirection(int i_OrigX, int i_OrigY, int i_OffsetX, int i_OffsetY, GameManager i_GameManager)
+        private static int numOfSquaresToCheckInDirection(int i_OrigX, int i_OrigY, int i_OffsetX, int i_OffsetY, GameManager i_GameManager)
         {
             int numberOfIterations = 0;
             eDirection direction = calcDirection(i_OffsetX, i_OffsetY);
@@ -350,10 +351,10 @@ namespace B15_Ex02_1
         private static bool checkIfMyCoinInEnd(int i_StartX, int i_StartY, int i_DirectionX, int i_DirectionY, GameManager i_GameManager, Player i_CurrentPlayer)
         {
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
-            int numberOfIterations = numOfIterationsInDirection(i_StartX, i_StartY, i_DirectionX, i_DirectionY, i_GameManager);
+            int numberOfIterations = numOfSquaresToCheckInDirection(i_StartX, i_StartY, i_DirectionX, i_DirectionY, i_GameManager);
             bool isMyCoinInEnd = false;
 
-            for (int i = 0; i < numberOfIterations; i++)
+            for (int i = 0; i < numberOfIterations + 1; i++)
             {
                 Coin squareCoin = i_GameManager[i_StartX + (i_DirectionX * i), i_StartY + (i_DirectionY * i)];
                 bool isMyCoin = squareCoin == i_CurrentPlayer.ShapeCoin;

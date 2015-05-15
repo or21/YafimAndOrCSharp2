@@ -10,10 +10,7 @@ namespace Test
     {
         public static void Main()
         {
-            char c = 'C';
-            int num = (int) MyEnum.B;
-            Console.WriteLine(num);
-            Console.ReadLine();
+            B15_Ex02_1.Program.Main();
         }
 
         public enum MyEnum

@@ -13,6 +13,40 @@ namespace B15_Ex02_1
         /// </summary>
         private static readonly int[,] sr_DirectionsArrayForMakeMove = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
 
+        private static GameManager cloneGameManager(GameManager io_GameMnagerToClone, Player i_Player)
+        {
+            GameManager clonedGameManager = new GameManager(io_GameMnagerToClone.Size, 1, i_Player.Name, "Comp", false);
+            for (int i = 0; i < io_GameMnagerToClone.Size; i++)
+            {
+                for (int j = 0; j < io_GameMnagerToClone.Size; j++)
+                {
+                    clonedGameManager[i, j] = io_GameMnagerToClone[i, j];
+                }
+            }
+            return clonedGameManager;
+        }
+
+        private static Player clonePlayer(Player io_PlayerToClone)
+        {
+            int size = io_PlayerToClone.BoardSize;
+
+            Player clonedPlayer = new Player(true, io_PlayerToClone.ShapeCoin, io_PlayerToClone.Name, size);
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    clonedPlayer[i, j] = io_PlayerToClone[i, j];
+                }
+            }
+
+            foreach (Coord c in io_PlayerToClone.PossibleMovesCoordinates)
+            {
+                clonedPlayer.PossibleMovesCoordinates.Add(c);
+            }
+            return clonedPlayer;
+        }
+
         /// <summary>
         /// Place coin in given coordinate
         /// </summary>
@@ -40,13 +74,13 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        /// Make AI move as the computer
+        /// 
         /// </summary>
         /// <param name="i_CurrentGameState"></param>
         /// <param name="i_Player"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public static void getAIMove(GameManager i_CurrentGameState, Player i_Player, out int x, out int y)
+        /// <param name="io_X"></param>
+        /// <param name="io_Y"></param>
+        public static void getAIMove(GameManager i_CurrentGameState, Player i_Player, out int io_X, out int io_Y)
         {
             /*
             // Random choose! - WORKING... 
@@ -55,48 +89,37 @@ namespace B15_Ex02_1
             x = i_Player.PossibleMovesCoordinates[i].x;
             y = i_Player.PossibleMovesCoordinates[i].y;
             */
-            
-            Player tempPlayer = i_Player;
-            GameManager tempGM = i_CurrentGameState;
 
-            List<Coord> p = i_Player.PossibleMovesCoordinates;
+            Player tempPlayer = clonePlayer(i_Player);
+            GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
+
             int availableMovesForCurrentStep = 0;
-            int maxProf = 0;
+            int maxMovesSoFar = 0;
 
-            int tempX, tempY;
-            x = 0;
-            y = 0;
+            int tempX;
+            int tempY;
 
-            foreach(Coord coordinate in p)
+            io_X = 0;
+            io_Y = 0;
+
+            foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
                 tempX = coordinate.x;
                 tempY = coordinate.y;
-                /*
-                MakeMove(ref tempGM, tempPlayer, tempX, tempY);
+
+                MakeMove(ref tempGameManager, tempPlayer, tempX, tempY);
                 availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
-                if (availableMovesForCurrentStep > maxProf)
+                if (availableMovesForCurrentStep > maxMovesSoFar)
                 {
-                    x = tempX;
-                    y = tempY;
-                    maxProf = availableMovesForCurrentStep;
+                    io_X = tempX;
+                    io_Y = tempY;
+                    maxMovesSoFar = availableMovesForCurrentStep;
                 }
 
-                tempGM = i_CurrentGameState;
-                tempPlayer = i_Player;
-                 */
-                Console.WriteLine("({0},{1})", coordinate.x, coordinate.y);
-
-                //MakeMove(ref tempGM, tempPlayer, tempX, tempY);
-
-                //availableMovesForCurrentStep = tempPlayer.AvailableMoves;
-                Console.WriteLine("Number of av. moves : {0}", availableMovesForCurrentStep);
-                x = coordinate.x;
-                y = coordinate.y;
-
-                //tempGM = i_CurrentGameState;
-                //tempPlayer.PossibleMovesCoordinates.Clear();
-
+                tempPlayer = clonePlayer(i_Player);
+                tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
+            
             }
            
         }

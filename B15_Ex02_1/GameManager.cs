@@ -48,19 +48,23 @@ namespace B15_Ex02_1
         /// <param name="i_NumberOfPlayers"> Number of human players </param>
         /// <param name="i_PlayerOneName">Name of the first player</param>
         /// <param name="i_PlayerTwoName">Name of the second player ("Comp" if computer)</param>
-        public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName)
+        public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName, bool initGame)
         {
             this.m_size = i_Size;
             this.m_numberOfPlayers = i_NumberOfPlayers;
             this.gameBoard = new Coin[i_Size, i_Size];
 
             this.m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-    //  this.m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
+   //   this.m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_totalMovesLeft = (i_Size * 2) - 4;
 
-            setNewGame();
+            if (initGame)
+            {
+                setNewGame();
+            }
+
         }
 
         /// <summary>
@@ -137,9 +141,12 @@ namespace B15_Ex02_1
 
                 if (canMove)
                 {
+                    m_gameManager = this;
+
                     // Computer's turn, Otherwise Human player's turn.
                     if (currentPlayer.IsComp)
                     {
+                        
                   //      Utils.getAIMove(ref m_gameManager, currentPlayer, out i_X, out i_Y);
                         Utils.getAIMove(m_gameManager, currentPlayer, out i_X, out i_Y);
                     }
@@ -148,7 +155,7 @@ namespace B15_Ex02_1
                         getMove(currentPlayer, out i_X, out i_Y, ref isGameOver);
                     }
 
-                    m_gameManager = this;
+           //         m_gameManager = this;
                     
                     Utils.MakeMove(ref m_gameManager, currentPlayer, i_X, i_Y);
                     Utils.UpadteAvailableMoves(this, ref otherPlayer);
@@ -163,7 +170,7 @@ namespace B15_Ex02_1
                 else
                 {
                     // Other player can move, Otherwise No moves left so end current game.
-                    if (otherPlayer.AvailableMoves != 0)
+                    if (otherPlayer.PossibleMovesCoordinates.Count == 0)
                     {
                         Console.WriteLine("No move left for {0}!", currentPlayer.Name);
                     }

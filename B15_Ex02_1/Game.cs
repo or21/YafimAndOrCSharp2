@@ -29,7 +29,7 @@ namespace B15_Ex02_1
             bool runGame = true;
             while (runGame)
             {
-                m_gameManager = new GameManager(size, numberOfPlayers, playerOneName, "Comp");
+                m_gameManager = new GameManager(size, numberOfPlayers, playerOneName, "Comp", runGame);
 
                 Drawer.DrawBoard(m_gameManager);
 

@@ -26,7 +26,7 @@ namespace B15_Ex02_1
             UpadteAvailableMoves(io_GameManager, ref i_Player);
         }
 
-        public static void MakeAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
+        public static void getAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
         {
             // Random choose!
             Random rnd = new Random();
@@ -34,6 +34,7 @@ namespace B15_Ex02_1
             x = i_Player.PossibleMovesCoordinates[i].x;
             y = i_Player.PossibleMovesCoordinates[i].y;
             Console.WriteLine("({0},{1})", x,y);
+
             /*
             Player tempPlayer = i_Player;
             GameManager tempGM = i_GameManager;
@@ -65,24 +66,7 @@ namespace B15_Ex02_1
             }
             */
         }
-        /*
-        private static List<string> possibleMoves(Player i_Player)
-        {
-            List<string> possibleMovesCoordinates = new List<string>();
 
-            for (int i = 0; i < i_Player.BoardSize; i++)
-            {
-                for (int j = 0; j < i_Player.BoardSize; j++)
-                {
-                    if (i_Player[i, j])
-                    {
-                        possibleMovesCoordinates.Add(i.ToString() + j.ToString());
-                    }
-                }
-            }
-            return possibleMovesCoordinates;
-        }
-        */
         private static Coin getOpponentCoin(Player i_Player)
         {
             Coin opponentCoin = Coin.O;

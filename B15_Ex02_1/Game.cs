@@ -11,50 +11,56 @@ namespace B15_Ex02_1
     /// </summary>
     public class Game
     {
-
-        GameManager gm;
+        /// <summary>
+        /// Controls and manages the running game
+        /// </summary>
+        private GameManager m_gameManager;
 
         /// <summary>
-        /// Initializes game with user properties
+        /// Initializes a new instance of the Game class.
         /// </summary>
         public Game()
         {
-            // first player always human.
-            string playerOneName = "yafim"; //setName();
+            /// first player always human.
+            string playerOneName = "yafim"; /// setName();
             int numberOfPlayers = 1; //setNumberOfPlayers();
        //     string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
-            int size = 6; //setSize();
+            int size = 6;//setSize();
             bool runGame = true;
             while (runGame)
             {
-                gm = new GameManager(size, numberOfPlayers, playerOneName, "Comp");
+                m_gameManager = new GameManager(size, numberOfPlayers, playerOneName, "Comp");
 
-                Drawer.DrawBoard(gm);
+                Drawer.DrawBoard(m_gameManager);
 
-                gm.RunGame();
+                m_gameManager.RunGame();
 
                 runGame = playAgain();
             }
 
             Console.WriteLine("Thank You for playing...");
-
         }
 
         /// <summary>
-        /// 
+        /// Get valid board game from the user.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>8 or 6</returns>
         private static int setSize()
         {
-            // default
+            // Default size
             int size = 6;
+
+            // Some flags for input validation
             bool isValidInput = false;
             bool isValidSize = false;
+
+            Console.Write("Please insert size of the board[8/6]: ");
+
             while (!isValidInput)
             {
-                Console.Write("Please insert size of the board[8/6]: ");
                 string inputFromUser = Console.ReadLine();
                 bool inputIsNumber = int.TryParse(inputFromUser, out size);
+
                 if (inputIsNumber)
                 {
                     isValidSize = size == 8 || size == 6;
@@ -74,8 +80,9 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        /// Set player's name
+        /// Get player's name
         /// </summary>
+        /// <returns>Valid name</returns>
         private static string setName()
         {
             string name = null;
@@ -100,6 +107,11 @@ namespace B15_Ex02_1
             return name;
         }
 
+        /// <summary>
+        /// Name must contain only letters
+        /// </summary>
+        /// <param name="i_InputString">String to check</param>
+        /// <returns>true if only letter Otherwise false</returns>
         private static bool stringContainsLetterOrDigits(string i_InputString)
         {
             foreach (char c in i_InputString)
@@ -113,14 +125,20 @@ namespace B15_Ex02_1
             return false;
         }
 
+        /// <summary>
+        /// How many players will be playing.
+        /// </summary>
+        /// <returns>1 or 2</returns>
         private static int setNumberOfPlayers()
         {
-            Console.Write("Please insert number of players[1/2]: ");
+            // Default
+            int numberOfPlayers = 1;
+
+            // Some flags for input validation
             bool isValidInput = false;
             bool isValidNumberOfPlayers = false;
 
-            // default
-            int numberOfPlayers = 1;
+            Console.Write("Please insert number of players[1/2]: ");
 
             while (!isValidInput)
             {
@@ -150,6 +168,10 @@ namespace B15_Ex02_1
             return numberOfPlayers;
         }
 
+        /// <summary>
+        /// Ask the user if he wants play this game again
+        /// </summary>
+        /// <returns>true for play again. false for end game.</returns>
         private bool playAgain()
         {
             Console.Write("Would you like to play again? [Y/N]: ");
@@ -159,7 +181,7 @@ namespace B15_Ex02_1
             while (flag)
             {
                 string playAgain = Console.ReadLine();
-
+                // TODO: VALIDATE INPUT
                 if (playAgain.Length != 1 && playAgain[0] != 'N' && playAgain[0] != 'Y')
                 {
                     Console.WriteLine("Invalid Input! Try again... ");
@@ -169,8 +191,8 @@ namespace B15_Ex02_1
                     runGame = playAgain.ToUpper().Equals("Y") ? true : false;
                     flag = false;
                 }
-
             }
+
             return runGame;
         }
     }

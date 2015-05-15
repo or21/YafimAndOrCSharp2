@@ -86,6 +86,9 @@ namespace B15_Ex02_1
 
     }
 
+    /// <summary>
+    /// Struc holds coordinate (x,y)
+    /// </summary>
     public struct Coord
     {
         public int x;

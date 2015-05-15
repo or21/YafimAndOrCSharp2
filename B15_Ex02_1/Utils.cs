@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
@@ -80,7 +79,7 @@ namespace B15_Ex02_1
         /// <param name="i_Player"></param>
         /// <param name="io_X"></param>
         /// <param name="io_Y"></param>
-        public static void getAIMove(GameManager i_CurrentGameState, Player i_Player, out int io_X, out int io_Y)
+        public static void GetAiMove(GameManager i_CurrentGameState, Player i_Player, out int io_X, out int io_Y)
         {
             /*
             // Random choose! - WORKING... 
@@ -93,22 +92,18 @@ namespace B15_Ex02_1
             Player tempPlayer = clonePlayer(i_Player);
             GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
 
-            int availableMovesForCurrentStep = 0;
             int maxMovesSoFar = 0;
-
-            int tempX;
-            int tempY;
 
             io_X = 0;
             io_Y = 0;
 
             foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
-                tempX = coordinate.x;
-                tempY = coordinate.y;
+                int tempX = coordinate.x;
+                int tempY = coordinate.y;
 
                 MakeMove(ref tempGameManager, tempPlayer, tempX, tempY);
-                availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
+                int availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
                 if (availableMovesForCurrentStep > maxMovesSoFar)
                 {
@@ -190,19 +185,19 @@ namespace B15_Ex02_1
                     numberOfIterations = i_OrigX;
                     break;
                 case eDirection.UpRight:
-                    numberOfIterations = Math.Min(i_OrigX, i_GameManager.Size - i_OrigY);
+                    numberOfIterations = Math.Min(i_OrigX, i_GameManager.Size - i_OrigY - 1);
                     break;
                 case eDirection.Right:
                     numberOfIterations = i_GameManager.Size - i_OrigY - 1;
                     break;
                 case eDirection.DownRight:
-                    numberOfIterations = Math.Min(i_GameManager.Size - i_OrigX, i_GameManager.Size - i_OrigY);
+                    numberOfIterations = Math.Min(i_GameManager.Size - i_OrigX - 1, i_GameManager.Size - i_OrigY - 1);
                     break;
                 case eDirection.Down:
                     numberOfIterations = i_GameManager.Size - i_OrigX - 1;
                     break;
                 case eDirection.DownLeft:
-                    numberOfIterations = Math.Min(i_GameManager.Size - i_OrigX, i_OrigY);
+                    numberOfIterations = Math.Min(i_GameManager.Size - i_OrigX - 1, i_OrigY);
                     break;
             }
 

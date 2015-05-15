@@ -148,7 +148,7 @@ namespace B15_Ex02_1
                     {
                         
                   //      Utils.getAIMove(ref m_gameManager, currentPlayer, out i_X, out i_Y);
-                        Utils.getAIMove(m_gameManager, currentPlayer, out i_X, out i_Y);
+                        Utils.GetAiMove(m_gameManager, currentPlayer, out i_X, out i_Y);
                     }
                     else
                     {
@@ -170,7 +170,7 @@ namespace B15_Ex02_1
                 else
                 {
                     // Other player can move, Otherwise No moves left so end current game.
-                    if (otherPlayer.PossibleMovesCoordinates.Count == 0)
+                    if (otherPlayer.PossibleMovesCoordinates.Count != 0)
                     {
                         Console.WriteLine("No move left for {0}!", currentPlayer.Name);
                     }

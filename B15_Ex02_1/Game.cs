@@ -181,8 +181,11 @@ namespace B15_Ex02_1
             while (flag)
             {
                 string playAgain = Console.ReadLine();
-                // TODO: VALIDATE INPUT
-                if (playAgain.Length != 1 && playAgain[0] != 'N' && playAgain[0] != 'Y')
+                
+                // Valid input
+                bool isValid = playAgain.ToUpper().Equals("N") || playAgain.ToUpper().Equals("Y");
+
+                if (!isValid)
                 {
                     Console.WriteLine("Invalid Input! Try again... ");
                 }

@@ -12,19 +12,30 @@ namespace B15_Ex02_1
         /// </summary>
         private static readonly int[,] sr_DirectionsArrayForMakeMove = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
 
-        private static GameManager cloneGameManager(GameManager io_GameMnagerToClone, Player i_Player)
+        /// <summary>
+        /// Clone instance of GameManager
+        /// </summary>
+        /// <param name="io_GameManagerToClone">Instance to clone</param>
+        /// <param name="i_Player">Current player</param>
+        /// <returns>Clone of io_GameManagerToClone</returns>
+        private static GameManager cloneGameManager(GameManager io_GameManagerToClone, Player i_Player)
         {
-            GameManager clonedGameManager = new GameManager(io_GameMnagerToClone.Size, 1, i_Player.Name, "Comp", false);
-            for (int i = 0; i < io_GameMnagerToClone.Size; i++)
+            GameManager clonedGameManager = new GameManager(io_GameManagerToClone.Size, 1, i_Player.Name, "Comp", false);
+            for (int i = 0; i < io_GameManagerToClone.Size; i++)
             {
-                for (int j = 0; j < io_GameMnagerToClone.Size; j++)
+                for (int j = 0; j < io_GameManagerToClone.Size; j++)
                 {
-                    clonedGameManager[i, j] = io_GameMnagerToClone[i, j];
+                    clonedGameManager[i, j] = io_GameManagerToClone[i, j];
                 }
             }
             return clonedGameManager;
         }
 
+        /// <summary>
+        /// Clone instance of Player
+        /// </summary>
+        /// <param name="io_PlayerToClone">Instance to clone</param>
+        /// <returns>Clone of io_PlayerToClone</returns>
         private static Player clonePlayer(Player io_PlayerToClone)
         {
             int size = io_PlayerToClone.BoardSize;
@@ -73,7 +84,7 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        /// 
+        /// Get move for the computer based on best result after checking all possible moves available.
         /// </summary>
         /// <param name="i_CurrentGameState"></param>
         /// <param name="i_Player"></param>
@@ -118,7 +129,11 @@ namespace B15_Ex02_1
             }
            
         }
-
+        /// <summary>
+        /// Gets opponent coin shape
+        /// </summary>
+        /// <param name="i_Player">Player to check</param>
+        /// <returns>Coin shape</returns>
         private static Coin getOpponentCoin(Player i_Player)
         {
             Coin opponentCoin = Coin.O;
@@ -130,6 +145,11 @@ namespace B15_Ex02_1
             return opponentCoin;
         }
 
+        /// <summary>
+        /// Parse alphabetical value to integer
+        /// </summary>
+        /// <param name="i_InputValue">Value to parse</param>
+        /// <returns>Parsed value</returns>
         public static int ParseValuesToInt(char i_InputValue)
         {
             const int v_Unicode = 65;
@@ -354,6 +374,12 @@ namespace B15_Ex02_1
             return isMyCoinInEnd;
         }
 
+        /// <summary>
+        /// Counts all points in the game.
+        /// </summary>
+        /// <param name="i_GameManager">Current state of the game</param>
+        /// <param name="io_PlayerA">Player One</param>
+        /// <param name="io_PlayerB">Player Two</param>
         public static void CountPoints(GameManager i_GameManager, ref Player io_PlayerA, ref Player io_PlayerB)
         {
             io_PlayerA.Points = 0;

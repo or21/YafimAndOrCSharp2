@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
@@ -62,6 +63,67 @@ namespace B15_Ex02_1
 
             // update valid moves for each player
             UpadteAvailableMoves(i_GameManager, ref i_Player);
+        }
+
+        public static void MakeAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
+        {
+            // Random choose!
+            List<string> possibleMovesCoordinates = possibleMoves(i_Player);
+            Random rnd = new Random();
+            int i = rnd.Next(possibleMovesCoordinates.Count);
+
+            string coordinate = possibleMovesCoordinates[i];
+            x = coordinate[0] - '0';
+            y = coordinate[1] - '0';
+
+            Console.WriteLine("({0},{1})", x,y);
+            /*
+            Player tempPlayer = i_Player;
+            GameManager tempGM = i_GameManager;
+            int availableMovesForCurrentStep = 0;
+            int maxProf = 0;
+
+            int tempX, tempY;
+            x = 0;
+            y = 0;
+
+            foreach(string coordinate in possibleMovesCoordinates)
+            {
+                tempX = coordinate[0] - '0';
+                tempY = coordinate[1] - '0';
+
+                MakeMove(ref tempGM, tempPlayer, tempX, tempY);
+                availableMovesForCurrentStep = tempPlayer.AvailableMoves;
+
+                if (availableMovesForCurrentStep > maxProf)
+                {
+                    x = tempX;
+                    y = tempY;
+                    maxProf = availableMovesForCurrentStep;
+                }
+
+                tempGM = i_GameManager;
+                tempPlayer = i_Player;
+            
+            }
+            */
+        }
+
+        private static List<string> possibleMoves(Player i_Player)
+        {
+            List<string> possibleMovesCoordinates = new List<string>();
+
+            for (int i = 0; i < i_Player.BoardSize; i++)
+            {
+                for (int j = 0; j < i_Player.BoardSize; j++)
+                {
+                    if (i_Player[i, j])
+                    {
+                        possibleMovesCoordinates.Add(i.ToString() + j.ToString());
+                    }
+                }
+            }
+            return possibleMovesCoordinates;
         }
 
         private static Coin getOpponentCoin(Player i_Player)

@@ -115,7 +115,15 @@ namespace B15_Ex02_1
 
                 if (canMove)
                 {
-                    getMove(currentPlayer, out  x, out y, ref isGameOver);
+                    if (currentPlayer.IsComp)
+                    {
+                        Utils.MakeAIMove(ref m_gameManager, currentPlayer, out x, out y);
+                    }
+                    else
+                    {
+                        getMove(currentPlayer, out  x, out y, ref isGameOver);
+                    }
+
                     m_gameManager = this;
 
                     if (isGameOver)
@@ -126,7 +134,7 @@ namespace B15_Ex02_1
                     Utils.MakeMove(ref m_gameManager, currentPlayer, x, y);
                     Utils.UpadteAvailableMoves(this, ref otherPlayer);
 
-                    Ex02.ConsoleUtils.Screen.Clear();
+//                    Ex02.ConsoleUtils.Screen.Clear();
                     
                     Drawer.DrawBoard(this);
 
@@ -144,6 +152,7 @@ namespace B15_Ex02_1
                     {
                         Player winner = (currentPlayer.Points > otherPlayer.Points) ? currentPlayer : otherPlayer;
                         Console.WriteLine("No moves left! Game Over.The Winner is {0}", winner);
+                        isGameOver = true;
                     }
                 }
 

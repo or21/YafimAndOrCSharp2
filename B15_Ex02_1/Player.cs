@@ -69,5 +69,10 @@ namespace B15_Ex02_1
             get { return name; }
             set { this.name = value; }
         }
+
+        public int BoardSize
+        {
+            get { return boardSize; }
+        }
     }
 }

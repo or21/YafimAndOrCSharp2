@@ -3,10 +3,23 @@ using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
+    /// <summary>
+    /// This class holds Othello game logic
+    /// </summary>
     internal class Utils
     {
+        /// <summary>
+        ///  8 directions for possible player movement
+        /// </summary>
         private static readonly int[,] sr_DirectionsArrayForMakeMove = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
 
+        /// <summary>
+        /// Place coin in given coordinate
+        /// </summary>
+        /// <param name="io_GameManager">Current state of the game</param>
+        /// <param name="i_Player">Current player</param>
+        /// <param name="i_NewX">X coordinate</param>
+        /// <param name="i_NewY">Y coordinate</param>
         public static void MakeMove(ref GameManager io_GameManager, Player i_Player, int i_NewX, int i_NewY)
         {
             io_GameManager[i_NewX, i_NewY] = i_Player.ShapeCoin;
@@ -22,10 +35,17 @@ namespace B15_Ex02_1
                 }
             }
 
-            // update valid moves for each player
+            // Update valid moves for player
             UpadteAvailableMoves(io_GameManager, ref i_Player);
         }
 
+        /// <summary>
+        /// Make AI move as the computer
+        /// </summary>
+        /// <param name="i_GameManager"></param>
+        /// <param name="i_Player"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public static void getAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
         {
             // Random choose!
@@ -33,7 +53,6 @@ namespace B15_Ex02_1
             int i = rnd.Next(i_Player.PossibleMovesCoordinates.Count);
             x = i_Player.PossibleMovesCoordinates[i].x;
             y = i_Player.PossibleMovesCoordinates[i].y;
-            Console.WriteLine("({0},{1})", x,y);
 
             /*
             Player tempPlayer = i_Player;

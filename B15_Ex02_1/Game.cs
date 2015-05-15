@@ -11,6 +11,9 @@ namespace B15_Ex02_1
     /// </summary>
     public class Game
     {
+
+        GameManager gm;
+
         /// <summary>
         /// Initializes game with user properties
         /// </summary>
@@ -20,14 +23,21 @@ namespace B15_Ex02_1
             string playerOneName = "yafim"; //setName();
             int numberOfPlayers = 1; //setNumberOfPlayers();
        //     string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
-            int size = 8; //setSize();
-            GameManager gm = new GameManager(size, numberOfPlayers, playerOneName, "Comp");
-            
-            Drawer.DrawBoard(gm);
+            int size = 6; //setSize();
+            bool runGame = true;
+            while (runGame)
+            {
+                gm = new GameManager(size, numberOfPlayers, playerOneName, "Comp");
 
-            gm.RunGame();
+                Drawer.DrawBoard(gm);
 
-            Console.ReadLine();
+                gm.RunGame();
+
+                runGame = playAgain();
+            }
+
+            Console.WriteLine("Thank You for playing...");
+
         }
 
         /// <summary>
@@ -138,6 +148,30 @@ namespace B15_Ex02_1
             }
 
             return numberOfPlayers;
+        }
+
+        private bool playAgain()
+        {
+            Console.Write("Would you like to play again? [Y/N]: ");
+
+            bool runGame = false;
+            bool flag = true;
+            while (flag)
+            {
+                string playAgain = Console.ReadLine();
+
+                if (playAgain.Length != 1 && playAgain[0] != 'N' && playAgain[0] != 'Y')
+                {
+                    Console.WriteLine("Invalid Input! Try again... ");
+                }
+                else
+                {
+                    runGame = playAgain.ToUpper().Equals("Y") ? true : false;
+                    flag = false;
+                }
+
+            }
+            return runGame;
         }
     }
 }

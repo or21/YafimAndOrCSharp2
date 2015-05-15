@@ -51,7 +51,8 @@ namespace B15_Ex02_1
             m_numberOfPlayers = i_NumberOfPlayers;
             gameBoard = new Coin[i_Size, i_Size];
 
-            m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+       //     m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+            m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_totalMovesLeft = (i_Size * 2) - 4;
@@ -150,20 +151,23 @@ namespace B15_Ex02_1
                     }
                     else
                     {
-                        Player winner = (currentPlayer.Points > otherPlayer.Points) ? currentPlayer : otherPlayer;
-                        Console.WriteLine("No moves left! Game Over.The Winner is {0}", winner);
                         isGameOver = true;
                     }
                 }
-
-                playerOneTurn = !playerOneTurn;
-                otherPlayer = currentPlayer;
+                if (!isGameOver)
+                {
+                    playerOneTurn = !playerOneTurn;
+                    otherPlayer = currentPlayer;
+                }
             }
 
             Utils.CountPoints(m_gameManager, ref currentPlayer, ref otherPlayer);
             Console.WriteLine("{0} Score: {1}, {2} Score: {3}", currentPlayer.Name, currentPlayer.Points, otherPlayer.Name, otherPlayer.Points);
-            Console.WriteLine("Thank You for playing...");
+
+            Player winner = (currentPlayer.Points > otherPlayer.Points) ? currentPlayer : otherPlayer;
+            Console.WriteLine("The Winner is {0}", winner.Name);
         }
+
 
         /// <summary>
         /// Get move from the user

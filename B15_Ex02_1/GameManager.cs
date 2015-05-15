@@ -42,7 +42,7 @@ namespace B15_Ex02_1
         private GameManager m_gameManager;
 
         /// <summary>
-        /// Initializes a new instance of the Board class.
+        /// Initializes a new instance of the GameManager class.
         /// </summary>
         /// <param name="i_Size"> Size of the board</param>
         /// <param name="i_NumberOfPlayers"> Number of human players </param>
@@ -85,13 +85,13 @@ namespace B15_Ex02_1
             gameBoard[halfBoard, halfBoard] = Coin.O;
             gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
-            //update availble moves for each player
+            // Update availble moves for each player
             Utils.UpadteAvailableMoves(this, ref m_playerOne);
             Utils.UpadteAvailableMoves(this, ref m_playerTwo);
         }
 
         /// <summary>
-        /// Size of the board
+        /// Gets size of the board
         /// </summary>
         public int Size
         {
@@ -144,7 +144,7 @@ namespace B15_Ex02_1
                     }
                     else
                     {
-                        getMove(currentPlayer, out  i_X, out i_Y, ref isGameOver);
+                        getMove(currentPlayer, out i_X, out i_Y, ref isGameOver);
                     }
 
                     m_gameManager = this;
@@ -189,10 +189,13 @@ namespace B15_Ex02_1
             Console.WriteLine("The Winner is {0}", winner.Name);
         }
 
-
         /// <summary>
         /// Get move from the user and check if valid move.
         /// </summary>
+        /// <param name="i_Player">Current player</param>
+        /// <param name="i_X">X Coordinate</param>
+        /// <param name="i_Y">y Coordinate</param>
+        /// <param name="io_IsGameOver">true if game over, Otherwise continue</param>
         private void getMove(Player i_Player, out int i_X, out int i_Y, ref bool io_IsGameOver)
         {
             // flag

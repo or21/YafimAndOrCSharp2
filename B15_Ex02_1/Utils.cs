@@ -13,6 +13,12 @@ namespace B15_Ex02_1
         /// </summary>
         private static readonly int[,] sr_DirectionsArrayForMakeMove = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
 
+        /// <summary>
+        /// Clone instance of GameManager
+        /// </summary>
+        /// <param name="io_GameMnagerToClone">Instance to clone</param>
+        /// <param name="i_Player">Curretn player</param>
+        /// <returns>Clone of io_GameMnagerToClone</returns>
         private static GameManager cloneGameManager(GameManager io_GameMnagerToClone, Player i_Player)
         {
             GameManager clonedGameManager = new GameManager(io_GameMnagerToClone.Size, 1, i_Player.Name, "Comp", false);
@@ -26,6 +32,11 @@ namespace B15_Ex02_1
             return clonedGameManager;
         }
 
+        /// <summary>
+        /// Clone instance of Player
+        /// </summary>
+        /// <param name="io_PlayerToClone">Instance to clone</param>
+        /// <returns>Clone of io_PlayerToClone</returns>
         private static Player clonePlayer(Player io_PlayerToClone)
         {
             int size = io_PlayerToClone.BoardSize;

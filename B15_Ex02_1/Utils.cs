@@ -42,21 +42,24 @@ namespace B15_Ex02_1
         /// <summary>
         /// Make AI move as the computer
         /// </summary>
-        /// <param name="i_GameManager"></param>
+        /// <param name="i_CurrentGameState"></param>
         /// <param name="i_Player"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public static void getAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
+        public static void getAIMove(GameManager i_CurrentGameState, Player i_Player, out int x, out int y)
         {
-            // Random choose!
+            /*
+            // Random choose! - WORKING... 
             Random rnd = new Random();
             int i = rnd.Next(i_Player.PossibleMovesCoordinates.Count);
             x = i_Player.PossibleMovesCoordinates[i].x;
             y = i_Player.PossibleMovesCoordinates[i].y;
-
-            /*
+            */
+            
             Player tempPlayer = i_Player;
-            GameManager tempGM = i_GameManager;
+            GameManager tempGM = i_CurrentGameState;
+
+            List<Coord> p = i_Player.PossibleMovesCoordinates;
             int availableMovesForCurrentStep = 0;
             int maxProf = 0;
 
@@ -64,13 +67,13 @@ namespace B15_Ex02_1
             x = 0;
             y = 0;
 
-            foreach(string coordinate in possibleMovesCoordinates)
+            foreach(Coord coordinate in p)
             {
-                tempX = coordinate[0] - '0';
-                tempY = coordinate[1] - '0';
-
+                tempX = coordinate.x;
+                tempY = coordinate.y;
+                /*
                 MakeMove(ref tempGM, tempPlayer, tempX, tempY);
-                availableMovesForCurrentStep = tempPlayer.AvailableMoves;
+                availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
                 if (availableMovesForCurrentStep > maxProf)
                 {
@@ -79,11 +82,23 @@ namespace B15_Ex02_1
                     maxProf = availableMovesForCurrentStep;
                 }
 
-                tempGM = i_GameManager;
+                tempGM = i_CurrentGameState;
                 tempPlayer = i_Player;
-            
+                 */
+                Console.WriteLine("({0},{1})", coordinate.x, coordinate.y);
+
+                //MakeMove(ref tempGM, tempPlayer, tempX, tempY);
+
+                //availableMovesForCurrentStep = tempPlayer.AvailableMoves;
+                Console.WriteLine("Number of av. moves : {0}", availableMovesForCurrentStep);
+                x = coordinate.x;
+                y = coordinate.y;
+
+                //tempGM = i_CurrentGameState;
+                //tempPlayer.PossibleMovesCoordinates.Clear();
+
             }
-            */
+           
         }
 
         private static Coin getOpponentCoin(Player i_Player)

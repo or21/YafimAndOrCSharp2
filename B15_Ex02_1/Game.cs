@@ -24,7 +24,7 @@ namespace B15_Ex02_1
             /// first player always human.
             string playerOneName = "yafim"; /// setName();
             int numberOfPlayers = 1; //setNumberOfPlayers();
-       //     string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
+            string playerTwoName = "Or"; //(numberOfPlayers == 2) ? setName() : "Comp";
             int size = 6;//setSize();
             bool runGame = true;
             while (runGame)

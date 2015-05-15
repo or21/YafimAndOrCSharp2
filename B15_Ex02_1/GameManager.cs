@@ -54,8 +54,8 @@ namespace B15_Ex02_1
             this.m_numberOfPlayers = i_NumberOfPlayers;
             this.gameBoard = new Coin[i_Size, i_Size];
 
-    //        this.m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-      this.m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
+            this.m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+    //  this.m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
         
             this.m_totalMovesLeft = (i_Size * 2) - 4;
@@ -140,7 +140,8 @@ namespace B15_Ex02_1
                     // Computer's turn, Otherwise Human player's turn.
                     if (currentPlayer.IsComp)
                     {
-                        Utils.getAIMove(ref m_gameManager, currentPlayer, out i_X, out i_Y);
+                  //      Utils.getAIMove(ref m_gameManager, currentPlayer, out i_X, out i_Y);
+                        Utils.getAIMove(m_gameManager, currentPlayer, out i_X, out i_Y);
                     }
                     else
                     {
@@ -157,7 +158,7 @@ namespace B15_Ex02_1
                     Drawer.DrawBoard(this);
 
                     //TODO: DELETE --> DEBUG
-                    Console.WriteLine("{0} Av.Moves: {1}, {2} Av.Moves: {3}", currentPlayer.Name, currentPlayer.AvailableMoves, otherPlayer.Name, otherPlayer.AvailableMoves);
+                    Console.WriteLine("{0} Av.Moves: {1}, {2} Av.Moves: {3}", m_playerOne.Name, m_playerOne.AvailableMoves, m_playerTwo.Name, m_playerTwo.AvailableMoves);
                 }
                 else
                 {

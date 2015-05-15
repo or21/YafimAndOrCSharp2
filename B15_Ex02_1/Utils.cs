@@ -29,14 +29,10 @@ namespace B15_Ex02_1
         public static void MakeAIMove(ref GameManager i_GameManager, Player i_Player, out int x, out int y)
         {
             // Random choose!
-            List<string> possibleMovesCoordinates = possibleMoves(i_Player);
             Random rnd = new Random();
-            int i = rnd.Next(possibleMovesCoordinates.Count);
-
-            string coordinate = possibleMovesCoordinates[i];
-            x = coordinate[0] - '0';
-            y = coordinate[1] - '0';
-
+            int i = rnd.Next(i_Player.PossibleMovesCoordinates.Count);
+            x = i_Player.PossibleMovesCoordinates[i].x;
+            y = i_Player.PossibleMovesCoordinates[i].y;
             Console.WriteLine("({0},{1})", x,y);
             /*
             Player tempPlayer = i_Player;
@@ -69,7 +65,7 @@ namespace B15_Ex02_1
             }
             */
         }
-
+        /*
         private static List<string> possibleMoves(Player i_Player)
         {
             List<string> possibleMovesCoordinates = new List<string>();
@@ -86,7 +82,7 @@ namespace B15_Ex02_1
             }
             return possibleMovesCoordinates;
         }
-
+        */
         private static Coin getOpponentCoin(Player i_Player)
         {
             Coin opponentCoin = Coin.O;
@@ -201,6 +197,9 @@ namespace B15_Ex02_1
         {
             Coin opponentCoin = getOpponentCoin(io_Player);
             io_Player.AvailableMoves = 0;
+
+            io_Player.PossibleMovesCoordinates.Clear();
+
             clearPlayerAvailableMoves(i_GameManager, ref io_Player);
 
             for (int i = 0; i < i_GameManager.Size; i++)
@@ -282,6 +281,11 @@ namespace B15_Ex02_1
                     {
                         io_Player[i_StartX + sr_DirectionsArrayForMakeMove[i, 0], i_StartY + sr_DirectionsArrayForMakeMove[i, 1]] = true;
                         io_Player.AvailableMoves++;
+
+                        Coord coord = new Coord();
+                        coord.x = i_StartX + sr_DirectionsArrayForMakeMove[i, 0];
+                        coord.y = i_StartY + sr_DirectionsArrayForMakeMove[i, 1];
+                        io_Player.PossibleMovesCoordinates.Add(coord);
                     }
                 }
             }

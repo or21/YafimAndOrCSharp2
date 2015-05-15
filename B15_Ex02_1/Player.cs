@@ -17,6 +17,8 @@ namespace B15_Ex02_1
         private int currentPoints;
         private int numberOfAvailableMoves;
 
+        private List<Coord> possibleMovesCoordinates;
+
         public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_BoardSize)
         {
             this.name = i_PlayerName;
@@ -26,6 +28,7 @@ namespace B15_Ex02_1
             this.availableMoves = new bool[boardSize, boardSize];
             this.currentPoints = 0;
             this.numberOfAvailableMoves = 0;
+            this.possibleMovesCoordinates = new List<Coord>();
 
             for (int i = 0; i < boardSize; i++)
             {
@@ -74,5 +77,18 @@ namespace B15_Ex02_1
         {
             get { return boardSize; }
         }
+
+        public List<Coord> PossibleMovesCoordinates
+        {
+            get { return possibleMovesCoordinates; }
+            set { this.possibleMovesCoordinates = value; }
+        }
+
+    }
+
+    public struct Coord
+    {
+        public int x;
+        public int y;
     }
 }

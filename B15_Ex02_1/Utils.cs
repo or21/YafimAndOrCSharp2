@@ -9,7 +9,7 @@ namespace B15_Ex02_1
     internal class Utils
     {
         /// <summary>
-        ///  8 directions for possible player movement
+        ///  8 directions for possible player movements
         /// </summary>
         private static readonly int[,] sr_DirectionsArrayForMakeMove = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
 
@@ -61,7 +61,7 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        /// Place coin in given coordinate
+        /// Place coin in given coordinate, flip the relevant opponent coins and update the relevant valid moves for current player
         /// </summary>
         /// <param name="io_GameManager">Current state of the game</param>
         /// <param name="i_Player">Current player</param>
@@ -178,17 +178,29 @@ namespace B15_Ex02_1
             return inputAsInt - v_Unicode;
         }
 
+        /// <summary>
+        /// If the player make a move that requires coin flipping - make the flipping. Check for all 8 directions.
+        /// </summary>
+        /// <param name="io_GameManager"></param>
+        /// <param name="i_OrigX"></param>
+        /// <param name="i_OrigY"></param>
+        /// <param name="i_DirectionX"></param>
+        /// <param name="i_DirectionY"></param>
+        /// <param name="i_CurrentPlayer"></param>
         private static void checkMove(ref GameManager io_GameManager, int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, Player i_CurrentPlayer)
         {
+            // check how much squares in current direction until the end of the game board.
             int numberOfIterations = numOfSquaresToCheckInDirection(i_OrigX, i_OrigY, i_DirectionX, i_DirectionY, io_GameManager);
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
             int numberOfCoinsToFlip = 0;
 
             for (int i = 1; i < numberOfIterations + 1; i++)
             {
+                // if found player coin - flip coins from new position to it. Otherwise - count the number of coins to flip.
                 bool isOpponentCoin = io_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] == opponentCoin;
                 if (!isOpponentCoin)
                 {
+                    // checks that the coin is not Null. If not - make the flipping.
                     bool isCurrentPlayerCoin = io_GameManager[i_OrigX + (i_DirectionX * i), i_OrigY + (i_DirectionY * i)] == i_CurrentPlayer.ShapeCoin;
                     if (isCurrentPlayerCoin)
                     {
@@ -202,6 +214,16 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Flip coins in the given direction.
+        /// </summary>
+        /// <param name="i_OrigX"></param>
+        /// <param name="i_OrigY"></param>
+        /// <param name="i_DirectionX"></param>
+        /// <param name="i_DirectionY"></param>
+        /// <param name="io_GameManager"></param>
+        /// <param name="i_CurrentPlayer"></param>
+        /// <param name="i_NumberOfCoinsToFlip"></param>
         private static void flipCoinsInRange(int i_OrigX, int i_OrigY, int i_DirectionX, int i_DirectionY, ref GameManager io_GameManager, Player i_CurrentPlayer, int i_NumberOfCoinsToFlip)
         {
             for (int i = 1; i < i_NumberOfCoinsToFlip + 1; i++)
@@ -210,6 +232,15 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Calculates the number of squares until the end of the game board in a given direction.
+        /// </summary>
+        /// <param name="i_OrigX"></param>
+        /// <param name="i_OrigY"></param>
+        /// <param name="i_OffsetX"></param>
+        /// <param name="i_OffsetY"></param>
+        /// <param name="i_GameManager"></param>
+        /// <returns></returns>
         private static int numOfSquaresToCheckInDirection(int i_OrigX, int i_OrigY, int i_OffsetX, int i_OffsetY, GameManager i_GameManager)
         {
             int numberOfIterations = 0;
@@ -245,6 +276,12 @@ namespace B15_Ex02_1
             return numberOfIterations;
         }
 
+        /// <summary>
+        /// Returns the direction of the move to a given offsets.
+        /// </summary>
+        /// <param name="i_OffsetX"></param>
+        /// <param name="i_OffsetY"></param>
+        /// <returns></returns>
         private static eDirection calcDirection(int i_OffsetX, int i_OffsetY)
         {
             eDirection direction = eDirection.Left;
@@ -258,6 +295,7 @@ namespace B15_Ex02_1
             directions[(int)eDirection.Down] = i_OffsetX > 0 && i_OffsetY == 0;
             directions[(int)eDirection.DownLeft] = i_OffsetX > 0 && i_OffsetY < 0;
 
+            // if direction[i] is true - returns the represnted enum.
             for (int i = 0; i < 8; i++)
             {
                 if (directions[i])
@@ -270,15 +308,20 @@ namespace B15_Ex02_1
             return direction;
         }
 
+        /// <summary>
+        /// Updates available moves for a given player according to current state of game manager.
+        /// </summary>
+        /// <param name="i_GameManager"></param>
+        /// <param name="io_Player"></param>
         public static void UpadteAvailableMoves(GameManager i_GameManager, ref Player io_Player)
         {
             Coin opponentCoin = getOpponentCoin(io_Player);
             io_Player.AvailableMoves = 0;
 
             io_Player.PossibleMovesCoordinates.Clear();
-
             clearPlayerAvailableMoves(i_GameManager, ref io_Player);
 
+            // for each squre - if there's opponent coin there, check for available moves around it.
             for (int i = 0; i < i_GameManager.Size; i++)
             {
                 for (int j = 0; j < i_GameManager.Size; j++)
@@ -286,6 +329,7 @@ namespace B15_Ex02_1
                     bool sqareWithOpponentCoin = i_GameManager[i, j] == opponentCoin;
                     if (sqareWithOpponentCoin)
                     {
+                        // For each direction where there is Null coin check the opposit direction for a possible move.
                         bool[] directions = createDirectionArray(i_GameManager, i, j, Coin.Null);
                         checkAllDirections(i, j, directions, i_GameManager, ref io_Player);
                     }
@@ -293,6 +337,11 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Clear the player available moves matrix.
+        /// </summary>
+        /// <param name="i_GameManager"></param>
+        /// <param name="io_Player"></param>
         private static void clearPlayerAvailableMoves(GameManager i_GameManager, ref Player io_Player)
         {
             for (int i = 0; i < i_GameManager.Size; i++)
@@ -304,6 +353,14 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// For each direction check if it's available(not edge of the game board) and if there is i_Coin coin.
+        /// </summary>
+        /// <param name="i_GameManager"></param>
+        /// <param name="i_StartX"></param>
+        /// <param name="i_StartJ"></param>
+        /// <param name="i_Coin"></param>
+        /// <returns></returns>
         private static bool[] createDirectionArray(GameManager i_GameManager, int i_StartX, int i_StartJ, Coin i_Coin)
         {
             bool[] directions = new bool[8];
@@ -347,12 +404,24 @@ namespace B15_Ex02_1
             return directions;
         }
 
+        /// <summary>
+        /// For each direction check if it's availabe (true in the given input) and if so, 
+        /// runs the method that check if it can be a move for current player.
+        /// In the end, update the available moves matrix and also the amount of available moves and the list of them.
+        /// </summary>
+        /// <param name="i_StartX"></param>
+        /// <param name="i_StartY"></param>
+        /// <param name="i_Directions"></param>
+        /// <param name="i_GameManager"></param>
+        /// <param name="io_Player"></param>
         private static void checkAllDirections(int i_StartX, int i_StartY, bool[] i_Directions, GameManager i_GameManager, ref Player io_Player)
         {
             for (int i = 0; i < 8; i++)
             {
+                // if valid direction:
                 if (i_Directions[i])
                 {
+                    // check if this can be a move for the player.
                     bool canBeMove = checkIfMyCoinInEnd(i_StartX, i_StartY, -1 * sr_DirectionsArrayForMakeMove[i, 0], -1 * sr_DirectionsArrayForMakeMove[i, 1], i_GameManager, io_Player);
                     if (canBeMove)
                     {
@@ -368,24 +437,39 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Recives a direction to check and a player. check if somwhere in this direction there is a player coin.
+        /// If so - return true - this is a valid direction that can be a move.
+        /// If not - return false.
+        /// </summary>
+        /// <param name="i_StartX"></param>
+        /// <param name="i_StartY"></param>
+        /// <param name="i_DirectionX"></param>
+        /// <param name="i_DirectionY"></param>
+        /// <param name="i_GameManager"></param>
+        /// <param name="i_CurrentPlayer"></param>
+        /// <returns></returns>
         private static bool checkIfMyCoinInEnd(int i_StartX, int i_StartY, int i_DirectionX, int i_DirectionY, GameManager i_GameManager, Player i_CurrentPlayer)
         {
             Coin opponentCoin = getOpponentCoin(i_CurrentPlayer);
             int numberOfIterations = numOfSquaresToCheckInDirection(i_StartX, i_StartY, i_DirectionX, i_DirectionY, i_GameManager);
             bool isMyCoinInEnd = false;
 
+            // numberOfIterations - number of squares in this direction until the edge of the game board.
             for (int i = 0; i < numberOfIterations + 1; i++)
             {
                 Coin squareCoin = i_GameManager[i_StartX + (i_DirectionX * i), i_StartY + (i_DirectionY * i)];
                 bool isMyCoin = squareCoin == i_CurrentPlayer.ShapeCoin;
                 bool isOppCoin = squareCoin == opponentCoin;
 
+                // if found a player coin - finish. 
                 if (isMyCoin)
                 {
                     isMyCoinInEnd = true;
                     break;
                 }
 
+                // if found Null coin - finish. this is not a valid move.
                 if (!isOppCoin)
                 {
                     break;
@@ -396,7 +480,7 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        /// Counts all points in the game.
+        /// Counts the points in the game for the given players.
         /// </summary>
         /// <param name="i_GameManager">Current state of the game</param>
         /// <param name="io_PlayerA">Player One</param>
@@ -425,6 +509,9 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Holds the possible directions for a squre starts from the left side.
+        /// </summary>
         private enum eDirection
         {
             Left = 0,

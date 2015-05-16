@@ -134,8 +134,18 @@ namespace B15_Ex02_1
                 tempPlayer = clonePlayer(i_Player);
                 tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
             }
+
+            getRandomCoord(bestResultsArray, out o_X, out o_Y);
+        }
+
+        /// <summary>
+        /// Pick randomly from best coordinates we found
+        /// </summary>
+        /// <param name="bestMoves"></param>
+        /// <returns></returns>
+        private static void getRandomCoord(List<Coord> bestResultsArray, out int o_X, out int o_Y)
+        {
             
-            // Pick randomly from best coordinates we found
             Random rnd = new Random();
             int i = rnd.Next(bestResultsArray.Count);
             o_X = bestResultsArray[i].x;

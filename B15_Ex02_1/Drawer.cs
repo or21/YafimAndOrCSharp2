@@ -7,6 +7,10 @@ namespace B15_Ex02_1
     /// </summary>
     public class Drawer
     {
+        /// <summary>
+        /// Draws current state of the board
+        /// </summary>
+        /// <param name="i_GameBoard">Current state of the game</param>
         public static void DrawBoard(GameManager i_GameBoard)
         {
             // 'A'
@@ -67,9 +71,10 @@ namespace B15_Ex02_1
         }
 
         /// <summary>
-        ///  Draws bottom border of each cell
+        /// Draws bottom border of each cell
         /// </summary>
-        /// <returns>valid separator</returns>
+        /// <param name="i_Size">size of the board</param>
+        /// <returns>Valid length separator</returns>
         private static string drawSeparator(int i_Size)
         {
             string separator = "  ";

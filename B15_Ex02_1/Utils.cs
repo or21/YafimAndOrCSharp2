@@ -131,20 +131,20 @@ namespace B15_Ex02_1
         }
         
         /// <summary>
-        /// Pick random coordinate from List<Coord>
+        /// Pick random coordinate from List
         /// </summary>
-        /// <param name="coordinateArray">Array of coordinates</param>
+        /// <param name="i_CoordinateArray">Array of coordinates</param>
         /// <param name="o_X">x Coordinate</param>
         /// <param name="o_Y">y Coordinate</param>
-        private static void getRandomCoord(List<Coord> coordinateArray, out int o_X, out int o_Y)
+        private static void getRandomCoord(List<Coord> i_CoordinateArray, out int o_X, out int o_Y)
         {
             
             Random rnd = new Random();
-            int i = rnd.Next(coordinateArray.Count);
-            o_X = coordinateArray[i].x;
-            o_Y = coordinateArray[i].y;
+            int i = rnd.Next(i_CoordinateArray.Count);
+            o_X = i_CoordinateArray[i].x;
+            o_Y = i_CoordinateArray[i].y;
 
-            coordinateArray.Clear();
+            i_CoordinateArray.Clear();
         }
 
         /// <summary>

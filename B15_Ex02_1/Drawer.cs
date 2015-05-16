@@ -36,22 +36,33 @@ namespace B15_Ex02_1
                     
                     if (positiveCoordinates)
                     {
-                        if (i_GameBoard[x, y].Equals(Coin.Null))
-                        {
-                            Console.Write("   |");
-                        }
-                        else if (i_GameBoard[x, y].Equals(Coin.X))
-                        {
-                            Console.Write(" X |");
-                        }
-                        else if (i_GameBoard[x, y].Equals(Coin.O))
-                        {
-                            Console.Write(" O |");
-                        }
+                        drawInnerCells(i_GameBoard, x, y);
                     }
                 }
 
                 Console.WriteLine(separator);
+            }
+        }
+
+        /// <summary>
+        /// Draws inside cells of the table
+        /// </summary>
+        /// <param name="i_GameBoard">Current state of the game</param>
+        /// <param name="i_X">x Coordinate</param>
+        /// <param name="i_Y">y Coordinate</param>
+        private static void drawInnerCells(GameManager i_GameBoard, int i_X, int i_Y)
+        {
+            if (i_GameBoard[i_X, i_Y].Equals(Coin.Null))
+            {
+                Console.Write("   |");
+            }
+            else if (i_GameBoard[i_X, i_Y].Equals(Coin.X))
+            {
+                Console.Write(" X |");
+            }
+            else if (i_GameBoard[i_X, i_Y].Equals(Coin.O))
+            {
+                Console.Write(" O |");
             }
         }
 

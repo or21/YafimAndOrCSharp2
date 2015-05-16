@@ -89,20 +89,12 @@ namespace B15_Ex02_1
         /// <summary>
         /// Get move for the computer based on best result after checking all possible moves available.
         /// </summary>
-        /// <param name="i_CurrentGameState"></param>
-        /// <param name="i_Player"></param>
-        /// <param name="o_X"></param>
-        /// <param name="o_Y"></param>
+        /// <param name="i_CurrentGameState">Current game state</param>
+        /// <param name="i_Player">Current player</param>
+        /// <param name="o_X">x Coordinate</param>
+        /// <param name="o_Y">y Coordinate</param>
         public static void GetAiMove(GameManager i_CurrentGameState, Player i_Player, out int o_X, out int o_Y)
         {
-            /*
-            // Random choose! - WORKING... 
-            Random rnd = new Random();
-            int i = rnd.Next(i_Player.PossibleMovesCoordinates.Count);
-            x = i_Player.PossibleMovesCoordinates[i].x;
-            y = i_Player.PossibleMovesCoordinates[i].y;
-            */
-
             Player tempPlayer = clonePlayer(i_Player);
             GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
 
@@ -137,21 +129,22 @@ namespace B15_Ex02_1
 
             getRandomCoord(bestResultsArray, out o_X, out o_Y);
         }
-
+        
         /// <summary>
-        /// Pick randomly from best coordinates we found
+        /// Pick random coordinate from List<Coord>
         /// </summary>
-        /// <param name="bestMoves"></param>
-        /// <returns></returns>
-        private static void getRandomCoord(List<Coord> bestResultsArray, out int o_X, out int o_Y)
+        /// <param name="coordinateArray">Array of coordinates</param>
+        /// <param name="o_X">x Coordinate</param>
+        /// <param name="o_Y">y Coordinate</param>
+        private static void getRandomCoord(List<Coord> coordinateArray, out int o_X, out int o_Y)
         {
             
             Random rnd = new Random();
-            int i = rnd.Next(bestResultsArray.Count);
-            o_X = bestResultsArray[i].x;
-            o_Y = bestResultsArray[i].y;
+            int i = rnd.Next(coordinateArray.Count);
+            o_X = coordinateArray[i].x;
+            o_Y = coordinateArray[i].y;
 
-            bestResultsArray.Clear();
+            coordinateArray.Clear();
         }
 
         /// <summary>

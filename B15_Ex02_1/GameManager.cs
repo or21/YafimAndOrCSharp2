@@ -1,8 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="GameManager.cs" company="B15_Ex02">
+// Yafim Vodkov 308973882 Or Brand 302521034
+// </copyright>
+//----------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
@@ -43,22 +45,19 @@ namespace B15_Ex02_1
         /// <param name="i_NumberOfPlayers"> Number of human players </param>
         /// <param name="i_PlayerOneName">Name of the first player</param>
         /// <param name="i_PlayerTwoName">Name of the second player ("Comp" if computer)</param>
-        /// <param name="i_InitGame"></param>
+        /// <param name="i_InitGame">Start new game</param>
         public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName, bool i_InitGame)
         {
             this.m_size = i_Size;
             this.numberOfPlayers = i_NumberOfPlayers;
             this.gameBoard = new Coin[i_Size, i_Size];
-
             this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
- //this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
 
             if (i_InitGame)
             {
                 setNewGame();
             }
-
         }
 
         /// <summary>
@@ -81,6 +80,9 @@ namespace B15_Ex02_1
             Utils.UpadteAvailableMoves(this, ref playerTwo);
         }
 
+        /// <summary>
+        /// Initialize new game board with no coins
+        /// </summary>
         private void initBoardForNewGame()
         {
             // Set all board to null.
@@ -145,9 +147,16 @@ namespace B15_Ex02_1
                 }
             }
 
-            printResult(currentPlayer, otherPlayer);
+            printResult();
         }
 
+        /// <summary>
+        /// Check if players can make moves
+        /// </summary>
+        /// <param name="i_CurrentPlayer">Current player</param>
+        /// <param name="io_IsGameOver">Update if game over</param>
+        /// <param name="io_OtherPlayer">Other player</param>
+        /// <returns>True if game over, Otherwise false</returns>
         private bool currentPlayerMove(Player i_CurrentPlayer, ref bool io_IsGameOver, ref Player io_OtherPlayer)
         {
             // Check if current player can move
@@ -169,9 +178,17 @@ namespace B15_Ex02_1
                     io_IsGameOver = true;
                 }
             }
+
             return io_IsGameOver;
         }
 
+        /// <summary>
+        /// Make a move for current player
+        /// </summary>
+        /// <param name="i_CurrentPlayer">Current player</param>
+        /// <param name="i_IsGameOver">Update if game over</param>
+        /// <param name="i_OtherPlayer">Other player</param>
+        /// <returns>True if game over, Otherwise false</returns>
         private bool makePlayerMove(Player i_CurrentPlayer, bool i_IsGameOver, ref Player i_OtherPlayer)
         {
             int newX;
@@ -196,19 +213,20 @@ namespace B15_Ex02_1
             Ex02.ConsoleUtils.Screen.Clear();
             Drawer.DrawBoard(this);
 
-            //TODO: DELETE --> DEBUG
-            Console.WriteLine("{0} Av.Moves: {1}, {2} Av.Moves: {3}", playerOne.Name, playerOne.AvailableMoves,
-                playerTwo.Name, playerTwo.AvailableMoves);
             return i_IsGameOver;
         }
 
-        private void printResult(Player i_CurrentPlayer, Player i_OtherPlayer)
+        /// <summary>
+        /// Print final results of the game.
+        /// </summary>
+        private void printResult()
         {
             // Count points for each player
-            Utils.CountPoints(gameManager, ref i_CurrentPlayer, ref i_OtherPlayer);
-            int currentPlayerPoints = i_CurrentPlayer.Points;
-            int otherPlayerPoints = i_OtherPlayer.Points;
-            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, currentPlayerPoints, playerTwo.Name, otherPlayerPoints);
+            Utils.CountPoints(gameManager, ref playerOne, ref playerTwo);
+
+            int currentPlayerPoints = playerOne.Points;
+            int otherPlayerPoints = playerTwo.Points;
+            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, playerOne.Points, playerTwo.Name, playerTwo.Points);
 
             if (currentPlayerPoints == otherPlayerPoints)
             {
@@ -217,7 +235,7 @@ namespace B15_Ex02_1
             else
             {
                 // The winner is the one with more coins
-                Player winner = (currentPlayerPoints > otherPlayerPoints) ? i_CurrentPlayer : i_OtherPlayer;
+                Player winner = (currentPlayerPoints > otherPlayerPoints) ? playerOne : playerTwo;
                 Console.WriteLine("The Winner is {0}", winner.Name);
             }
         }
@@ -261,6 +279,14 @@ namespace B15_Ex02_1
             }
         }
 
+        /// <summary>
+        /// Check if the input is a valid move, and set (x,y) as next potential move.
+        /// </summary>
+        /// <param name="o_X">x Coordinate</param>
+        /// <param name="o_Y">y Coordinate</param>
+        /// <param name="i_PlayerInput">Input to check</param>
+        /// <param name="i_Player">Current player</param>
+        /// <returns>True if a valid move</returns>
         private bool areLettersValidMove(out int o_X, out int o_Y, string i_PlayerInput, Player i_Player)
         {
             // Letter to Y, Number to X
@@ -282,6 +308,7 @@ namespace B15_Ex02_1
                     Console.WriteLine("Can't Move here. Try again...");
                 }
             }
+
             return isPossible;
         }
     }

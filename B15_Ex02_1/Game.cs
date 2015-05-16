@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Game.cs" company="B15_Ex02">
+// Yafim Vodkov 308973882 Or Brand 302521034
+// </copyright>
+//----------------------------------------------------------------------
+using System;
 
 namespace B15_Ex02_1
 {
@@ -145,6 +150,12 @@ namespace B15_Ex02_1
             return numberOfPlayers;
         }
 
+        /// <summary>
+        /// Check if valid Input was given.
+        /// </summary>
+        /// <param name="i_InputIsNumber">If a number</param>
+        /// <param name="i_NumberOfPlayers">Number of player</param>
+        /// <returns>True if valid</returns>
         private static bool isValidNumberOfPlayers(bool i_InputIsNumber, int i_NumberOfPlayers)
         {
             bool isValidInput = false;
@@ -162,6 +173,7 @@ namespace B15_Ex02_1
             {
                 isValidInput = true;
             }
+
             return isValidInput;
         }
 

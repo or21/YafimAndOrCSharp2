@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Drawer.cs" company="B15_Ex02">
+// Yafim Vodkov 308973882 Or Brand 302521034
+// </copyright>
+//----------------------------------------------------------------------
+using System;
 
 namespace B15_Ex02_1
 {
@@ -79,11 +84,15 @@ namespace B15_Ex02_1
         {
             string separator = "  ";
 
-            for (int i = 0; i < (4 * i_Size) + 1; i++)
+            if (i_Size == 8)
             {
-                separator += '=';
+                separator += "=================================";
             }
-
+            else
+            {
+                separator += "=========================";
+            }
+            
             return Environment.NewLine + separator;
         }
     }

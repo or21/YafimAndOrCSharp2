@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
@@ -106,10 +107,12 @@ namespace B15_Ex02_1
             GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
 
             int maxMovesSoFar = 0;
-
+            
+            List<Coord> bestResultsArray = new List<Coord>();
+            /*
             o_X = 0;
             o_Y = 0;
-
+            */
             foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
                 int tempX = coordinate.x;
@@ -118,16 +121,33 @@ namespace B15_Ex02_1
                 MakeMove(ref tempGameManager, tempPlayer, tempX, tempY);
                 int availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
-                if (availableMovesForCurrentStep > maxMovesSoFar)
+                if (availableMovesForCurrentStep == maxMovesSoFar)
                 {
+                    bestResultsArray.Add(coordinate);
+                }
+
+                else if (availableMovesForCurrentStep > maxMovesSoFar)
+                {
+                    /*
                     o_X = tempX;
                     o_Y = tempY;
+                    */
                     maxMovesSoFar = availableMovesForCurrentStep;
+                    bestResultsArray.Clear();
+                    bestResultsArray.Add(coordinate);
                 }
 
                 tempPlayer = clonePlayer(i_Player);
                 tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
             }
+            
+            // Pick randomly from best coordinates we found
+            Random rnd = new Random();
+            int i = rnd.Next(bestResultsArray.Count);
+            o_X = bestResultsArray[i].x;
+            o_Y = bestResultsArray[i].y;
+
+            bestResultsArray.Clear();
         }
 
         /// <summary>

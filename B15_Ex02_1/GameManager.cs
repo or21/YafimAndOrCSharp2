@@ -51,7 +51,7 @@ namespace B15_Ex02_1
             this.gameBoard = new Coin[i_Size, i_Size];
 
             this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-            //   this.m_playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
+// this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
 
             if (i_InitGame)
@@ -157,7 +157,7 @@ namespace B15_Ex02_1
             else
             {
                 // Other player can move, Otherwise No moves left so end current game.
-                if (io_OtherPlayer.AvailableMoves == 0)
+                if (io_OtherPlayer.AvailableMoves != 0)
                 {
                     Console.WriteLine("No move left for {0}!", i_CurrentPlayer.Name);
                 }
@@ -173,10 +173,10 @@ namespace B15_Ex02_1
         {
             int newX;
             int newY;
+
             // Computer's turn, Otherwise Human player's turn.
             if (i_CurrentPlayer.IsComp)
             {
-                //      Utils.getAIMove(ref m_gameManager, currentPlayer, out o_X, out o_Y);
                 Utils.GetAiMove(gameManager, i_CurrentPlayer, out newX, out newY);
             }
             else

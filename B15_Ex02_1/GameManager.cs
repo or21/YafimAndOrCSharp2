@@ -203,11 +203,20 @@ namespace B15_Ex02_1
         {
             // Count points for each player
             Utils.CountPoints(gameManager, ref i_CurrentPlayer, ref i_OtherPlayer);
-            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, playerOne.Points, playerTwo.Name, playerTwo.Points);
+            int playerOnePoints = playerOne.Points;
+            int playerTwoPoints = playerTwo.Points;
+            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, playerOnePoints, playerTwo.Name, playerTwoPoints);
 
-            // The winner is the one with more coins
-            Player winner = (i_CurrentPlayer.Points > i_OtherPlayer.Points) ? i_CurrentPlayer : i_OtherPlayer;
-            Console.WriteLine("The Winner is {0}", winner.Name);
+            if (playerOnePoints == playerTwoPoints)
+            {
+                Console.WriteLine("It's a tie!");
+            }
+            else
+            {
+                // The winner is the one with more coins
+                Player winner = (playerOnePoints > playerTwoPoints) ? playerOne : playerTwo;
+                Console.WriteLine("The Winner is {0}", winner.Name);
+            }
         }
 
         /// <summary>

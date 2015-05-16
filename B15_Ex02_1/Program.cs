@@ -15,7 +15,7 @@ namespace B15_Ex02_1
         /// </summary>
         public static void Main()
         {
-            Game game = new Game();
+            new Game();
         }
     }
 }

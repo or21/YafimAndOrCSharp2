@@ -13,11 +13,6 @@ namespace B15_Ex02_1
     public class Game
     {
         /// <summary>
-        /// Controls and manages the running game
-        /// </summary>
-        private GameManager gameManager;
-
-        /// <summary>
         /// Initializes a new instance of the Game class.
         /// </summary>
         public Game()
@@ -30,7 +25,7 @@ namespace B15_Ex02_1
             bool runGame = true;
             while (runGame)
             {
-                gameManager = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName, runGame);
+                GameManager gameManager = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName, runGame);
                 gameManager.RunGame();
                 runGame = playAgain();
             }

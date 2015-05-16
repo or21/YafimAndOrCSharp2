@@ -4,7 +4,6 @@
 // </copyright>
 //----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 
 namespace B15_Ex02_1
 {
@@ -13,11 +12,6 @@ namespace B15_Ex02_1
     /// </summary>
     public class GameManager
     {
-        /// <summary>
-        /// Number of human players
-        /// </summary>
-        private int numberOfPlayers;
-
         /// <summary>
         /// Set the players
         /// </summary>
@@ -49,7 +43,6 @@ namespace B15_Ex02_1
         public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName, bool i_InitGame)
         {
             this.m_size = i_Size;
-            this.numberOfPlayers = i_NumberOfPlayers;
             this.gameBoard = new Coin[i_Size, i_Size];
             this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
             this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
@@ -126,7 +119,6 @@ namespace B15_Ex02_1
             gameManager = this;
 
             // Players to play
-            Player currentPlayer = playerOne;
             Player otherPlayer = playerTwo;
 
             Ex02.ConsoleUtils.Screen.Clear();
@@ -135,7 +127,7 @@ namespace B15_Ex02_1
             while (!isGameOver)
             {
                 // Check whose turn now
-                currentPlayer = playerOneTurn ? playerOne : playerTwo;
+                Player currentPlayer = playerOneTurn ? playerOne : playerTwo;
 
                 isGameOver = currentPlayerMove(currentPlayer, ref isGameOver, ref otherPlayer);
 

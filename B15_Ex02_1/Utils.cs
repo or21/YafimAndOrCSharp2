@@ -107,19 +107,17 @@ namespace B15_Ex02_1
             GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
 
             int maxMovesSoFar = 0;
-            
+            int availableMovesForCurrentStep;
+
             List<Coord> bestResultsArray = new List<Coord>();
-            /*
-            o_X = 0;
-            o_Y = 0;
-            */
+
             foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
                 int tempX = coordinate.x;
                 int tempY = coordinate.y;
 
                 MakeMove(ref tempGameManager, tempPlayer, tempX, tempY);
-                int availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
+                availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
                 if (availableMovesForCurrentStep == maxMovesSoFar)
                 {
@@ -128,10 +126,6 @@ namespace B15_Ex02_1
 
                 else if (availableMovesForCurrentStep > maxMovesSoFar)
                 {
-                    /*
-                    o_X = tempX;
-                    o_Y = tempY;
-                    */
                     maxMovesSoFar = availableMovesForCurrentStep;
                     bestResultsArray.Clear();
                     bestResultsArray.Add(coordinate);

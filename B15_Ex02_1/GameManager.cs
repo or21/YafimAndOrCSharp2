@@ -51,7 +51,7 @@ namespace B15_Ex02_1
             this.gameBoard = new Coin[i_Size, i_Size];
 
             this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-// this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
+ //this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
 
             if (i_InitGame)
@@ -126,6 +126,9 @@ namespace B15_Ex02_1
             // Players to play
             Player currentPlayer = playerOne;
             Player otherPlayer = playerTwo;
+
+            Ex02.ConsoleUtils.Screen.Clear();
+            Drawer.DrawBoard(this);
 
             while (!isGameOver)
             {
@@ -203,18 +206,18 @@ namespace B15_Ex02_1
         {
             // Count points for each player
             Utils.CountPoints(gameManager, ref i_CurrentPlayer, ref i_OtherPlayer);
-            int playerOnePoints = playerOne.Points;
-            int playerTwoPoints = playerTwo.Points;
-            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, playerOnePoints, playerTwo.Name, playerTwoPoints);
+            int currentPlayerPoints = i_CurrentPlayer.Points;
+            int otherPlayerPoints = i_OtherPlayer.Points;
+            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, currentPlayerPoints, playerTwo.Name, otherPlayerPoints);
 
-            if (playerOnePoints == playerTwoPoints)
+            if (currentPlayerPoints == otherPlayerPoints)
             {
                 Console.WriteLine("It's a tie!");
             }
             else
             {
                 // The winner is the one with more coins
-                Player winner = (playerOnePoints > playerTwoPoints) ? playerOne : playerTwo;
+                Player winner = (currentPlayerPoints > otherPlayerPoints) ? i_CurrentPlayer : i_OtherPlayer;
                 Console.WriteLine("The Winner is {0}", winner.Name);
             }
         }

@@ -26,7 +26,6 @@ namespace B15_Ex02_1
             while (runGame)
             {
                 gameManager = new GameManager(size, numberOfPlayers, playerOneName, playerTwoName, runGame);
-                Drawer.DrawBoard(gameManager);
                 gameManager.RunGame();
                 runGame = playAgain();
             }

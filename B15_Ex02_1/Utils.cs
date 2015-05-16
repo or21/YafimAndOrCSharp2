@@ -89,37 +89,27 @@ namespace B15_Ex02_1
         /// <summary>
         /// Get move for the computer based on best result after checking all possible moves available.
         /// </summary>
-        /// <param name="i_CurrentGameState"></param>
-        /// <param name="i_Player"></param>
-        /// <param name="o_X"></param>
-        /// <param name="o_Y"></param>
+        /// <param name="i_CurrentGameState">Current game state</param>
+        /// <param name="i_Player">Current player</param>
+        /// <param name="o_X">x Coordinate</param>
+        /// <param name="o_Y">y Coordinate</param>
         public static void GetAiMove(GameManager i_CurrentGameState, Player i_Player, out int o_X, out int o_Y)
         {
-            /*
-            // Random choose! - WORKING... 
-            Random rnd = new Random();
-            int i = rnd.Next(i_Player.PossibleMovesCoordinates.Count);
-            x = i_Player.PossibleMovesCoordinates[i].x;
-            y = i_Player.PossibleMovesCoordinates[i].y;
-            */
-
             Player tempPlayer = clonePlayer(i_Player);
             GameManager tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
 
             int maxMovesSoFar = 0;
-            
+            int availableMovesForCurrentStep;
+
             List<Coord> bestResultsArray = new List<Coord>();
-            /*
-            o_X = 0;
-            o_Y = 0;
-            */
+
             foreach (Coord coordinate in i_Player.PossibleMovesCoordinates)
             {
                 int tempX = coordinate.x;
                 int tempY = coordinate.y;
 
                 MakeMove(ref tempGameManager, tempPlayer, tempX, tempY);
-                int availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
+                availableMovesForCurrentStep = tempPlayer.PossibleMovesCoordinates.Count;
 
                 if (availableMovesForCurrentStep == maxMovesSoFar)
                 {
@@ -128,10 +118,6 @@ namespace B15_Ex02_1
 
                 else if (availableMovesForCurrentStep > maxMovesSoFar)
                 {
-                    /*
-                    o_X = tempX;
-                    o_Y = tempY;
-                    */
                     maxMovesSoFar = availableMovesForCurrentStep;
                     bestResultsArray.Clear();
                     bestResultsArray.Add(coordinate);
@@ -140,14 +126,25 @@ namespace B15_Ex02_1
                 tempPlayer = clonePlayer(i_Player);
                 tempGameManager = cloneGameManager(i_CurrentGameState, i_Player);
             }
-            
-            // Pick randomly from best coordinates we found
-            Random rnd = new Random();
-            int i = rnd.Next(bestResultsArray.Count);
-            o_X = bestResultsArray[i].x;
-            o_Y = bestResultsArray[i].y;
 
-            bestResultsArray.Clear();
+            getRandomCoord(bestResultsArray, out o_X, out o_Y);
+        }
+        
+        /// <summary>
+        /// Pick random coordinate from List<Coord>
+        /// </summary>
+        /// <param name="coordinateArray">Array of coordinates</param>
+        /// <param name="o_X">x Coordinate</param>
+        /// <param name="o_Y">y Coordinate</param>
+        private static void getRandomCoord(List<Coord> coordinateArray, out int o_X, out int o_Y)
+        {
+            
+            Random rnd = new Random();
+            int i = rnd.Next(coordinateArray.Count);
+            o_X = coordinateArray[i].x;
+            o_Y = coordinateArray[i].y;
+
+            coordinateArray.Clear();
         }
 
         /// <summary>

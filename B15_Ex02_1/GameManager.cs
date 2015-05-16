@@ -51,7 +51,7 @@ namespace B15_Ex02_1
             this.gameBoard = new Coin[i_Size, i_Size];
 
             this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
- //this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
+// this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
             this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
 
             if (i_InitGame)

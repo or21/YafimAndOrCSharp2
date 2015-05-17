@@ -218,7 +218,12 @@ namespace B15_Ex02_1
 
             int currentPlayerPoints = m_playerOne.Points;
             int otherPlayerPoints = m_playerTwo.Points;
-            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", m_playerOne.Name, m_playerOne.Points, m_playerTwo.Name, m_playerTwo.Points);
+            Console.WriteLine(
+                                "{0} Score: {1}, {2} Score: {3}", 
+                                m_playerOne.Name, 
+                                m_playerOne.Points,
+                                m_playerTwo.Name, 
+                                m_playerTwo.Points);
 
             if (currentPlayerPoints == otherPlayerPoints)
             {

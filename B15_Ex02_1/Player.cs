@@ -15,42 +15,42 @@ namespace B15_Ex02_1
         /// <summary>
         /// If player is computer
         /// </summary>
-        private bool isComputer;
+        private bool m_isComputer;
 
         /// <summary>
         /// Shape of the player
         /// </summary>
-        private Coin shape;
+        private Coin m_shape;
 
         /// <summary>
         /// Possible moves
         /// </summary>
-        private bool[,] availableMoves;
+        private bool[,] m_availableMoves;
 
         /// <summary>
         /// Size of the board
         /// </summary>
-        private int boardSize;
+        private int m_boardSize;
 
         /// <summary>
         /// The name of the player
         /// </summary>
-        private string name;
+        private string m_name;
 
         /// <summary>
         /// Current points of the player
         /// </summary>
-        private int currentPoints;
+        private int m_currentPoints;
 
         /// <summary>
         /// Number of available moves left
         /// </summary>
-        private int numberOfAvailableMoves;
+        private int m_numberOfAvailableMoves;
 
         /// <summary>
         /// The possible coordinates player can move
         /// </summary>
-        private List<Coord> possibleMovesCoordinates;
+        private List<Coord> m_possibleMovesCoordinates;
 
         /// <summary>
         /// Initializes a new instance of the Player class.
@@ -61,20 +61,20 @@ namespace B15_Ex02_1
         /// <param name="i_BoardSize">Game board size</param>
         public Player(bool i_IsComputer, Coin i_Shape, string i_PlayerName, int i_BoardSize)
         {
-            this.name = i_PlayerName;
-            this.isComputer = i_IsComputer;
-            this.shape = i_Shape;
-            this.boardSize = i_BoardSize;
-            this.availableMoves = new bool[boardSize, boardSize];
-            this.currentPoints = 0;
-            this.numberOfAvailableMoves = 0;
-            this.possibleMovesCoordinates = new List<Coord>();
+            this.m_name = i_PlayerName;
+            this.m_isComputer = i_IsComputer;
+            this.m_shape = i_Shape;
+            this.m_boardSize = i_BoardSize;
+            this.m_availableMoves = new bool[m_boardSize, m_boardSize];
+            this.m_currentPoints = 0;
+            this.m_numberOfAvailableMoves = 0;
+            this.m_possibleMovesCoordinates = new List<Coord>();
 
-            for (int i = 0; i < boardSize; i++)
+            for (int i = 0; i < m_boardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < m_boardSize; j++)
                 {
-                    this.availableMoves[i, j] = false;
+                    this.m_availableMoves[i, j] = false;
                 }
             }
         }
@@ -87,8 +87,8 @@ namespace B15_Ex02_1
         /// <returns>True if possible move</returns>
         public bool this[int i_X, int i_Y]
         {
-            get { return availableMoves[i_X, i_Y]; }
-            set { this.availableMoves[i_X, i_Y] = value; }
+            get { return m_availableMoves[i_X, i_Y]; }
+            set { this.m_availableMoves[i_X, i_Y] = value; }
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace B15_Ex02_1
         /// </summary>
         public bool IsComp
         {
-            get { return isComputer; }
+            get { return m_isComputer; }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace B15_Ex02_1
         /// </summary>
         public Coin ShapeCoin
         {
-            get { return shape; }
+            get { return m_shape; }
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace B15_Ex02_1
         /// </summary>
         public int Points
         {
-            get { return currentPoints; }
-            set { this.currentPoints = value; }
+            get { return m_currentPoints; }
+            set { this.m_currentPoints = value; }
         }
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace B15_Ex02_1
         /// </summary>
         public int AvailableMoves
         {
-            get { return numberOfAvailableMoves; }
-            set { this.numberOfAvailableMoves = value; }
+            get { return m_numberOfAvailableMoves; }
+            set { this.m_numberOfAvailableMoves = value; }
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace B15_Ex02_1
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { this.name = value; }
+            get { return m_name; }
+            set { this.m_name = value; }
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace B15_Ex02_1
         /// </summary>
         public int BoardSize
         {
-            get { return boardSize; }
+            get { return m_boardSize; }
         }
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace B15_Ex02_1
         /// </summary>
         public List<Coord> PossibleMovesCoordinates
         {
-            get { return possibleMovesCoordinates; }
-            set { this.possibleMovesCoordinates = value; }
+            get { return m_possibleMovesCoordinates; }
+            set { this.m_possibleMovesCoordinates = value; }
         }
     }
 

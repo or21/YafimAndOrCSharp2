@@ -15,12 +15,12 @@ namespace B15_Ex02_1
         /// <summary>
         /// Set the players
         /// </summary>
-        private Player playerOne, playerTwo;
+        private Player m_playerOne, m_playerTwo;
 
         /// <summary>
         /// Coin matrix holds the current state of the game
         /// </summary>
-        private Coin[,] gameBoard;
+        private Coin[,] m_gameBoard;
 
         /// <summary>
         /// Size of the board
@@ -30,7 +30,7 @@ namespace B15_Ex02_1
         /// <summary>
         /// Controls and manages the running game
         /// </summary>
-        private GameManager gameManager;
+        private GameManager m_gameManager;
 
         /// <summary>
         /// Initializes a new instance of the GameManager class.
@@ -43,10 +43,9 @@ namespace B15_Ex02_1
         public GameManager(int i_Size, int i_NumberOfPlayers, string i_PlayerOneName, string i_PlayerTwoName, bool i_InitGame)
         {
             this.m_size = i_Size;
-            this.gameBoard = new Coin[i_Size, i_Size];
-      //      this.playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
-            this.playerOne = new Player(true, Coin.X, i_PlayerOneName, i_Size);
-            this.playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
+            this.m_gameBoard = new Coin[i_Size, i_Size];
+            this.m_playerOne = new Player(false, Coin.X, i_PlayerOneName, i_Size);
+            this.m_playerTwo = (i_NumberOfPlayers == 2) ? new Player(false, Coin.O, i_PlayerTwoName, i_Size) : new Player(true, Coin.O, i_PlayerTwoName, i_Size);
 
             if (i_InitGame)
             {
@@ -63,15 +62,15 @@ namespace B15_Ex02_1
 
             // Place 4 coins in board
             int halfBoard = (m_size / 2) - 1;
-            gameBoard[halfBoard + 1, halfBoard] = Coin.X;
-            gameBoard[halfBoard, halfBoard + 1] = Coin.X;
+            m_gameBoard[halfBoard + 1, halfBoard] = Coin.X;
+            m_gameBoard[halfBoard, halfBoard + 1] = Coin.X;
 
-            gameBoard[halfBoard, halfBoard] = Coin.O;
-            gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
+            m_gameBoard[halfBoard, halfBoard] = Coin.O;
+            m_gameBoard[halfBoard + 1, halfBoard + 1] = Coin.O;
 
             // Update availble moves for each player
-            Utils.UpadteAvailableMoves(this, ref playerOne);
-            Utils.UpadteAvailableMoves(this, ref playerTwo);
+            Utils.UpadteAvailableMoves(this, ref m_playerOne);
+            Utils.UpadteAvailableMoves(this, ref m_playerTwo);
         }
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace B15_Ex02_1
             {
                 for (int y = 0; y < m_size; y++)
                 {
-                    gameBoard[x, y] = Coin.Null;
+                    m_gameBoard[x, y] = Coin.Null;
                 }
             }
         }
@@ -105,8 +104,8 @@ namespace B15_Ex02_1
         /// <returns>Coin value</returns>
         public Coin this[int i_I, int i_J]
         {
-            get { return gameBoard[i_I, i_J]; }
-            set { gameBoard[i_I, i_J] = value; }
+            get { return m_gameBoard[i_I, i_J]; }
+            set { m_gameBoard[i_I, i_J] = value; }
         }
 
         /// <summary>
@@ -117,10 +116,10 @@ namespace B15_Ex02_1
             // Some flags
             bool playerOneTurn = true;
             bool isGameOver = false;
-            gameManager = this;
+            m_gameManager = this;
 
             // Players to play
-            Player otherPlayer = playerTwo;
+            Player otherPlayer = m_playerTwo;
 
             Ex02.ConsoleUtils.Screen.Clear();
             Drawer.DrawBoard(this);
@@ -128,7 +127,7 @@ namespace B15_Ex02_1
             while (!isGameOver)
             {
                 // Check whose turn now
-                Player currentPlayer = playerOneTurn ? playerOne : playerTwo;
+                Player currentPlayer = playerOneTurn ? m_playerOne : m_playerTwo;
 
                 isGameOver = currentPlayerMove(currentPlayer, ref isGameOver, ref otherPlayer);
 
@@ -190,7 +189,7 @@ namespace B15_Ex02_1
             // Computer's turn, Otherwise Human player's turn.
             if (i_CurrentPlayer.IsComp)
             {
-                Utils.GetAiMove(gameManager, i_CurrentPlayer, out newX, out newY);
+                Utils.GetAiMove(m_gameManager, i_CurrentPlayer, out newX, out newY);
             }
             else
             {
@@ -199,7 +198,7 @@ namespace B15_Ex02_1
 
             if (!i_IsGameOver)
             {
-                Utils.MakeMove(ref gameManager, i_CurrentPlayer, newX, newY);
+                Utils.MakeMove(ref m_gameManager, i_CurrentPlayer, newX, newY);
                 Utils.UpadteAvailableMoves(this, ref i_OtherPlayer);
             }
 
@@ -215,11 +214,11 @@ namespace B15_Ex02_1
         private void printResult()
         {
             // Count points for each player
-            Utils.CountPoints(gameManager, ref playerOne, ref playerTwo);
+            Utils.CountPoints(m_gameManager, ref m_playerOne, ref m_playerTwo);
 
-            int currentPlayerPoints = playerOne.Points;
-            int otherPlayerPoints = playerTwo.Points;
-            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", playerOne.Name, playerOne.Points, playerTwo.Name, playerTwo.Points);
+            int currentPlayerPoints = m_playerOne.Points;
+            int otherPlayerPoints = m_playerTwo.Points;
+            Console.WriteLine("{0} Score: {1}, {2} Score: {3}", m_playerOne.Name, m_playerOne.Points, m_playerTwo.Name, m_playerTwo.Points);
 
             if (currentPlayerPoints == otherPlayerPoints)
             {
@@ -228,7 +227,7 @@ namespace B15_Ex02_1
             else
             {
                 // The winner is the one with more coins
-                Player winner = (currentPlayerPoints > otherPlayerPoints) ? playerOne : playerTwo;
+                Player winner = (currentPlayerPoints > otherPlayerPoints) ? m_playerOne : m_playerTwo;
                 Console.WriteLine("The Winner is {0}", winner.Name);
             }
         }
